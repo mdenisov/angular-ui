@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html ng-app="dashboard">
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="css/bootstrap.css">
     <link rel="stylesheet" href="css/main.css">
 </head>
-<body>
+<body ng-controller="MainCtrl">
 
     <div class="container">
 
@@ -49,19 +49,20 @@
             </div>
         </div>
 
-        <div class="jumbotron">
-            <h1>Navbar example</h1>
-            <p>This example is a quick exercise to illustrate how the default, static navbar and fixed to top navbar work. It includes the responsive CSS and HTML, so it also adapts to your viewport and device.</p>
-            <p>
-                <a class="btn btn-lg btn-primary" href="../../components/#navbar" role="button">View navbar docs &raquo;</a>
-            </p>
-        </div>
+
+        <section class="ui-section">
+            <div ng-model="tabs.activeTab" bs-tabs="">
+                <div ng-repeat="tab in tabs" title="{{ tab.title }}" ng-bind="tab.content" bs-pane=""></div>
+            </div>
+        </section>
 
     </div>
 
 
     <script src="vendor/angular/angular.js"></script>
     <script src="js/app.js"></script>
+    <script src="js/ui.js"></script>
+    <script src="js/modules/tab/tab.js"></script>
 
 </body>
 </html>
