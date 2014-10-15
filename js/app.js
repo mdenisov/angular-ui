@@ -10,7 +10,8 @@
 
     var app = angular.module('dashboard', [
         'banki.ui',
-		'ui.mask'
+		'ui.mask',
+		'ngSanitize'
     ]);
 
     app.controller('MainCtrl', function ($scope, $rootScope, $location) {
@@ -53,6 +54,13 @@
 			checkbox: {left: false, middle: true, right: false},
 			radio: 'left'
 		};
+
+	});
+
+	// tooltips
+	app.controller('TooltipCtrl', function($scope, $q, $sce, $tooltip, $templateCache) {
+
+		$scope.tooltip = {title: 'Hello Tooltip! This is a multiline message!'};
 
 	});
 

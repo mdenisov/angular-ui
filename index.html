@@ -142,16 +142,30 @@
             </div>
         </section>
 
+        <section class="ui-section" ng-controller="TooltipCtrl">
+
+            <h1 id="tooltips" class="page-header">Tooltips <small>tooltip.js</small></h1>
+
+            <div class="ui-example">
+
+                <p>Tight pants next level keffiyeh <a href="" ui-tooltip="tooltip">you probably</a> haven't heard of them. Photo booth beard raw denim letterpress vegan messenger bag stumptown.</p>
+                <input type="text" class="form-control" data-placement="right" data-type="info" data-container="body" placeholder="Focus to toggle tooltip" data-trigger="focus" ui-tooltip="tooltip">
+
+            </div>
+        </section>
+
     </div>
 
 
     <script src="vendor/angular/angular.js"></script>
+    <script src="vendor/angular-sanitize/angular-sanitize.js"></script>
 
     <!-- plugins -->
     <script src="vendor/angular-animate/angular-animate.js"></script>
 
     <!-- utils -->
     <script src="js/utils/mask.js"></script>
+    <script src="js/helpers/dimensions.js"></script>
 
     <!-- Application -->
     <script src="js/app.js"></script>
@@ -160,6 +174,7 @@
     <script src="js/modules/tab/tab.js"></script>
     <script src="js/modules/collapse/collapse.js"></script>
     <script src="js/modules/button/button.js"></script>
+    <script src="js/modules/tooltip/tooltip.js"></script>
     <script src="js/ui.js"></script>
 
 </body>
