@@ -2,7 +2,7 @@
 /**
  * banki-angular-ui
  * @author Maxim Denisov
- * @description Tooltip module
+ * @description Typeahead module
  */
 'use strict';
 
@@ -19,11 +19,11 @@ angular.module('banki.ui.typeahead', ['banki.ui.tooltip', 'banki.helpers.parseOp
             trigger: 'focus',
             container: false,
             keyboard: true,
-            html: false,
+            html: true,
             delay: 0,
             minLength: 1,
             filter: 'filter',
-            limit: 10
+            limit: 6
         };
 
         this.$get = function($window, $rootScope, $tooltip) {

@@ -22,7 +22,7 @@ angular.module('banki.ui.tooltip', ['banki.helpers.dimensions'])
 			contentTemplate: false,
 			trigger: 'hover focus',
 			keyboard: false,
-			html: false,
+			html: true,
 			show: false,
 			title: '',
 			type: '',

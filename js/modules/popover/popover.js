@@ -2,7 +2,7 @@
 /**
  * banki-angular-ui
  * @author Maxim Denisov
- * @description Tooltip module
+ * @description Popover module
  */
 'use strict';
 

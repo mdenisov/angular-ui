@@ -96,6 +96,13 @@
 
     });
 
+    // modal
+    app.controller('ModalCtrl', function($scope, $modal, $templateCache) {
+
+        $scope.modal = {title: 'Title', content: 'Hello Modal<br />This is a multiline message!'};
+
+    });
+
     app.run(function($window, $rootScope, $location) {
 
     });
