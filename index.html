@@ -221,6 +221,29 @@
         </section>
 
 
+        <section class="ui-section" ng-controller="SelectCtrl">
+
+            <h1 id="select" class="page-header">Select <small>select.js</small></h1>
+
+            <div class="ui-example">
+
+                <label>Single select:&nbsp;</label>
+                <button type="button" class="btn btn-default" ng-model="selectedIcon" data-html="1" ng-options="icon.value as icon.label for icon in icons" ui-select>
+                    Action <span class="caret"></span>
+                </button>
+
+                <hr>
+
+                <label>Multiple select:&nbsp;</label>
+                <button type="button" class="btn btn-default" ng-model="selectedIcons" data-html="1" data-multiple="1" data-animation="am-flip-x" ng-options="icon.value as icon.label for icon in icons" ui-select>
+                    Action <span class="caret"></span>
+                </button>
+
+            </div>
+
+        </section>
+
+
     </div>
 
 
@@ -247,6 +270,7 @@
     <script src="js/modules/popover/popover.js"></script>
     <script src="js/modules/modal/modal.js"></script>
     <script src="js/modules/dropdown/dropdown.js"></script>
+    <script src="js/modules/select/select.js"></script>
     <script src="js/ui.js"></script>
 
 </body>
