@@ -23,7 +23,7 @@ angular.module('banki.ui.typeahead', ['banki.ui.tooltip', 'banki.helpers.parseOp
             delay: 0,
             minLength: 1,
             filter: 'filter',
-            limit: 6
+            limit: 10
         };
 
         this.$get = function($window, $rootScope, $tooltip) {
