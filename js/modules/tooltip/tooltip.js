@@ -467,7 +467,7 @@ angular.module('banki.ui.tooltip', ['banki.helpers.dimensions'])
 				}, true);
 
 				// Visibility binding support
-				attr.uiShow && scope.$watch(attr.bsShow, function(newValue, oldValue) {
+				attr.uiShow && scope.$watch(attr.uiShow, function(newValue, oldValue) {
 					if(!tooltip || !angular.isDefined(newValue)) return;
 					if(angular.isString(newValue)) newValue = !!newValue.match(/true|,?(tooltip),?/i);
 					newValue === true ? tooltip.show() : tooltip.hide();
@@ -490,6 +490,6 @@ angular.module('banki.ui.tooltip', ['banki.helpers.dimensions'])
 
 	.run(['$templateCache', function($templateCache) {
 
-		$templateCache.put('tooltip/tooltip.tpl.html', '<div class="tooltip in tooltip-info" ng-show="title"><div class="tooltip-arrow"></div><div class="tooltip-inner" ng-bind-html="title"></div></div>');
+		$templateCache.put('tooltip/tooltip.tpl.html', '<div class="tooltip in" ng-show="title"><div class="tooltip-arrow"></div><div class="tooltip-inner" ng-bind="title"></div></div>');
 
 	}]);

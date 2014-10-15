@@ -148,8 +148,34 @@
 
             <div class="ui-example">
 
-                <p>Tight pants next level keffiyeh <a href="" ui-tooltip="tooltip">you probably</a> haven't heard of them. Photo booth beard raw denim letterpress vegan messenger bag stumptown.</p>
-                <input type="text" class="form-control" data-placement="right" data-type="info" data-container="body" placeholder="Focus to toggle tooltip" data-trigger="focus" ui-tooltip="tooltip">
+                <p>Tight pants next level keffiyeh <a href="" data-title="Tooltip content" ui-tooltip>you probably</a> haven't heard of them. Photo booth beard raw denim letterpress vegan messenger bag stumptown.</p>
+                <input type="text" class="form-control" data-placement="bottom-left" data-type="info" data-container="body" placeholder="Focus to toggle tooltip" data-trigger="focus" ui-tooltip="tooltip">
+
+            </div>
+        </section>
+
+        <section class="ui-section" ng-controller="TypeaheadCtrl">
+
+            <h1 id="typeahead" class="page-header">Typeahead <small>typeahead.js</small></h1>
+
+            <div class="ui-example">
+
+                <form class="form-inline" role="form">
+                    <div class="form-group">
+                        <label><i class="fa fa-globe"></i> State</label>
+                        <input type="text" class="form-control" ng-model="selectedState" ng-options="state for state in states" placeholder="Enter state" ui-typeahead>
+                    </div>
+                    <div class="form-group">
+                        <label>Icon</label>
+                        <input type="text" class="form-control" ng-model="selectedIcon" data-min-length="0" data-html="1" data-animation="am-flip-x" ng-options="icon as icon.label for icon in icons" placeholder="Enter icon" ui-typeahead>
+                    </div>
+                    <hr>
+                    <!-- Using an async data provider -->
+                    <div class="form-group">
+                        <label><i class="fa fa-home"></i> Address <small>(async via maps.googleapis.com)</small></label>
+                        <input type="text" class="form-control" ng-model="selectedAddress" data-animation="am-flip-x" ng-options="address.formatted_address as address.formatted_address for address in getAddress($viewValue)" placeholder="Enter address" ui-typeahead>
+                    </div>
+                </form>
 
             </div>
         </section>
@@ -166,6 +192,7 @@
     <!-- utils -->
     <script src="js/utils/mask.js"></script>
     <script src="js/helpers/dimensions.js"></script>
+    <script src="js/helpers/parse-options.js"></script>
 
     <!-- Application -->
     <script src="js/app.js"></script>
@@ -175,6 +202,7 @@
     <script src="js/modules/collapse/collapse.js"></script>
     <script src="js/modules/button/button.js"></script>
     <script src="js/modules/tooltip/tooltip.js"></script>
+    <script src="js/modules/typeahead/typeahead.js"></script>
     <script src="js/ui.js"></script>
 
 </body>
