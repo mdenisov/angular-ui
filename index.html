@@ -50,9 +50,37 @@
         </div>
 
 
-        <section class="ui-section">
-            <div ng-model="tabs.activeTab" bs-tabs="">
-                <div ng-repeat="tab in tabs" title="{{ tab.title }}" ng-bind="tab.content" bs-pane=""></div>
+        <section class="ui-section" ng-controller="TabCtrl">
+            <div class="bs-example">
+
+                <div ng-model="tabs.activeTab" ui-tabs>
+                    <div ng-repeat="tab in tabs" title="{{ tab.title }}" ng-bind="tab.content" ui-pane></div>
+                </div>
+
+            </div>
+        </section>
+
+
+        <section class="ui-section" ng-controller="CollapseCtrl">
+            <div class="bs-example">
+
+                <div class="panel-group" ng-model="panels.activePanel" ui-collapse="">
+                    <div class="panel panel-default" ng-repeat="panel in panels">
+                        <div class="panel-heading">
+                            <h4 class="panel-title">
+                                <a ui-collapse-toggle="">
+                                    {{ panel.title }}
+                                </a>
+                            </h4>
+                        </div>
+                        <div class="panel-collapse" ui-collapse-target="">
+                            <div class="panel-body">
+                                {{ panel.body }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
             </div>
         </section>
 
@@ -60,9 +88,14 @@
 
 
     <script src="vendor/angular/angular.js"></script>
+    <script src="vendor/angular-animate/angular-animate.js"></script>
     <script src="js/app.js"></script>
-    <script src="js/ui.js"></script>
+
+    <!-- ui modules -->
     <script src="js/modules/tab/tab.js"></script>
+    <script src="js/modules/collapse/collapse.js"></script>
+    <script src="js/ui.js"></script>
+    <!-- /ui modules -->
 
 </body>
 </html>

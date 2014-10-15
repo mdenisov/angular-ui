@@ -71,19 +71,19 @@ angular.module('banki.ui.tab', [])
             link: function postLink(scope, element, attrs, controllers) {
 
                 var ngModelCtrl = controllers[0];
-                var bsTabsCtrl = controllers[1];
+                var uiTabsCtrl = controllers[1];
 
                 if(ngModelCtrl) {
 
                     // Update the modelValue following
-                    bsTabsCtrl.$viewChangeListeners.push(function() {
-                        ngModelCtrl.$setViewValue(bsTabsCtrl.$panes.$active);
+					uiTabsCtrl.$viewChangeListeners.push(function() {
+                        ngModelCtrl.$setViewValue(uiTabsCtrl.$panes.$active);
                     });
 
                     // modelValue -> $formatters -> viewValue
                     ngModelCtrl.$formatters.push(function(modelValue) {
                         // console.warn('$formatter("%s"): modelValue=%o (%o)', element.attr('ng-model'), modelValue, typeof modelValue);
-                        bsTabsCtrl.$setActive(modelValue * 1);
+						uiTabsCtrl.$setActive(modelValue * 1);
                         return modelValue;
                     });
 
@@ -102,7 +102,7 @@ angular.module('banki.ui.tab', [])
             link: function postLink(scope, element, attrs, controllers) {
 
                 var ngModelCtrl = controllers[0];
-                var bsTabsCtrl = controllers[1];
+                var uiTabsCtrl = controllers[1];
 
                 // Add base class
                 element.addClass('tab-pane');
@@ -113,20 +113,20 @@ angular.module('banki.ui.tab', [])
                 });
 
                 // Add animation class
-                if(bsTabsCtrl.$options.animation) {
-                    element.addClass(bsTabsCtrl.$options.animation);
+                if(uiTabsCtrl.$options.animation) {
+                    element.addClass(uiTabsCtrl.$options.animation);
                 }
 
                 // Push pane to parent bsTabs controller
-                bsTabsCtrl.$push(scope);
+				uiTabsCtrl.$push(scope);
 
                 function render() {
-                    var index = bsTabsCtrl.$panes.indexOf(scope);
-                    var active = bsTabsCtrl.$panes.$active;
-                    $animate[index === active ? 'addClass' : 'removeClass'](element, bsTabsCtrl.$options.activeClass);
+                    var index = uiTabsCtrl.$panes.indexOf(scope);
+                    var active = uiTabsCtrl.$panes.$active;
+                    $animate[index === active ? 'addClass' : 'removeClass'](element, uiTabsCtrl.$options.activeClass);
                 }
 
-                bsTabsCtrl.$viewChangeListeners.push(function() {
+				uiTabsCtrl.$viewChangeListeners.push(function() {
                     render();
                 });
                 render();
@@ -134,4 +134,10 @@ angular.module('banki.ui.tab', [])
             }
         };
 
-    }]);
+    }])
+
+	.run(['$templateCache', function($templateCache) {
+
+		$templateCache.put('tab/tab.tpl.html', '<ul class="nav" ng-class="$navClass" role="tablist"><li ng-repeat="$pane in $panes" ng-class="$index == $panes.$active ? $activeClass : \'\'"><a role="tab" data-toggle="tab" ng-click="$setActive($index)" data-index="{{ $index }}" ng-bind-html="$pane.title"></a></li></ul><div ng-transclude class="tab-content"></div>');
+
+	}]);
