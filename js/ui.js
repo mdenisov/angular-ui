@@ -4,7 +4,6 @@
  * @author Maxim Denisov
  */
 
-
 'use strict';
 
 angular.module('banki.ui', [

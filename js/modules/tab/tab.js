@@ -4,6 +4,7 @@
  * @author Maxim Denisov
  * @description Tabs module
  */
+
 'use strict';
 
 angular.module('banki.ui.tab', [])

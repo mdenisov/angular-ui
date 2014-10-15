@@ -126,11 +126,34 @@
             </div>
         </section>
 
+
+        <section class="ui-section">
+
+            <h1 id="mask" class="page-header">Mask</h1>
+
+            <div class="ui-example">
+
+                <div class="row">
+                    <div class="col-xs-3">
+                        <input type="text" class="form-control" name="field" ui-mask="(999) 999-9999" ng-model="phoneNumber">
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
     </div>
 
 
     <script src="vendor/angular/angular.js"></script>
+
+    <!-- plugins -->
     <script src="vendor/angular-animate/angular-animate.js"></script>
+
+    <!-- utils -->
+    <script src="js/utils/mask.js"></script>
+
+    <!-- Application -->
     <script src="js/app.js"></script>
 
     <!-- ui modules -->
@@ -138,7 +161,6 @@
     <script src="js/modules/collapse/collapse.js"></script>
     <script src="js/modules/button/button.js"></script>
     <script src="js/ui.js"></script>
-    <!-- /ui modules -->
 
 </body>
 </html>

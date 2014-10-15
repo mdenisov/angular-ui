@@ -9,7 +9,8 @@
     'use strict';
 
     var app = angular.module('dashboard', [
-        'banki.ui'
+        'banki.ui',
+		'ui.mask'
     ]);
 
     app.controller('MainCtrl', function ($scope, $rootScope, $location) {
