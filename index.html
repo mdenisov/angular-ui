@@ -142,6 +142,7 @@
             </div>
         </section>
 
+
         <section class="ui-section" ng-controller="TooltipCtrl">
 
             <h1 id="tooltips" class="page-header">Tooltips <small>tooltip.js</small></h1>
@@ -153,6 +154,7 @@
 
             </div>
         </section>
+
 
         <section class="ui-section" ng-controller="TypeaheadCtrl">
 
@@ -180,6 +182,19 @@
             </div>
         </section>
 
+
+        <section class="ui-section" ng-controller="PopoverCtrl">
+
+            <h1 id="popover" class="page-header">Popover <small>popover.js</small></h1>
+
+            <div class="ui-example">
+
+                <button type="button" class="btn btn-lg btn-primary" data-placement="top" title="{{popover.title}}" data-content="{{popover.content}}" data-trigger="focus" ui-popover>Click to toggle popover</button>
+
+            </div>
+        </section>
+
+
     </div>
 
 
@@ -203,6 +218,7 @@
     <script src="js/modules/button/button.js"></script>
     <script src="js/modules/tooltip/tooltip.js"></script>
     <script src="js/modules/typeahead/typeahead.js"></script>
+    <script src="js/modules/popover/popover.js"></script>
     <script src="js/ui.js"></script>
 
 </body>

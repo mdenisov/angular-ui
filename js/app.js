@@ -89,6 +89,13 @@
 
     });
 
+    // popover
+    app.controller('PopoverCtrl', function($scope, $templateCache) {
+
+        $scope.popover = {title: 'Title', content: 'Hello Popover. This is a multiline message!'};
+
+    });
+
     app.run(function($window, $rootScope, $location) {
 
     });

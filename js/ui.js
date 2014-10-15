@@ -11,5 +11,6 @@ angular.module('banki.ui', [
 	'banki.ui.collapse',
 	'banki.ui.button',
 	'banki.ui.tooltip',
-    'banki.ui.typeahead'
+    'banki.ui.typeahead',
+    'banki.ui.popover'
 ]);
