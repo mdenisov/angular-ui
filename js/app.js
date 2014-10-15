@@ -31,7 +31,7 @@
 
 	});
 
-	// tabs
+	// collapse
 	app.controller('CollapseCtrl', function($scope, $templateCache) {
 
 		$scope.panels = [
@@ -41,6 +41,17 @@
 		];
 
 		$scope.panels.activePanel = 1;
+
+	});
+
+	// buttons
+	app.controller('ButtonCtrl', function($scope, $templateCache) {
+
+		$scope.button = {
+			toggle: false,
+			checkbox: {left: false, middle: true, right: false},
+			radio: 'left'
+		};
 
 	});
 

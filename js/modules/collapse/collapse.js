@@ -2,6 +2,7 @@
 /**
  * banki-angular-ui
  * @author Maxim Denisov
+ * @description Collapse module
  */
 'use strict';
 
@@ -21,6 +22,7 @@ angular.module('banki.ui.collapse', [])
 
 			// Attributes options
 			self.$options = angular.copy(defaults);
+
 			angular.forEach(['animation', 'disallowToggle', 'activeClass', 'startCollapsed'], function(key) {
 				if (angular.isDefined($attrs[key])) self.$options[key] = $attrs[key];
 			});

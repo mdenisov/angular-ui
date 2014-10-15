@@ -2,6 +2,7 @@
 /**
  * banki-angular-ui
  * @author Maxim Denisov
+ * @description Tabs module
  */
 'use strict';
 

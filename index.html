@@ -51,7 +51,10 @@
 
 
         <section class="ui-section" ng-controller="TabCtrl">
-            <div class="bs-example">
+
+            <h1 id="tabs" class="page-header">Tabs <small>tab.js</small></h1>
+
+            <div class="ui-example">
 
                 <div ng-model="tabs.activeTab" ui-tabs>
                     <div ng-repeat="tab in tabs" title="{{ tab.title }}" ng-bind="tab.content" ui-pane></div>
@@ -62,7 +65,10 @@
 
 
         <section class="ui-section" ng-controller="CollapseCtrl">
-            <div class="bs-example">
+
+            <h1 id="collapse" class="page-header">Collapse <small>collapse.js</small></h1>
+
+            <div class="ui-example">
 
                 <div class="panel-group" ng-model="panels.activePanel" ui-collapse="">
                     <div class="panel panel-default" ng-repeat="panel in panels">
@@ -84,6 +90,42 @@
             </div>
         </section>
 
+
+        <section class="ui-section" ng-controller="ButtonCtrl">
+
+            <h1 id="button" class="page-header">Button <small>button.js</small></h1>
+
+            <div class="ui-example">
+
+                <label>Toggle:</label>
+                <button type="button" class="btn btn-default" ng-model="button.toggle" ui-checkbox>Toggle</button>
+                <!-- You can also use custom values with the `data-true-value` & `data-false-value` attributes -->
+
+                <hr><label>Checkboxes:</label>
+                <div class="btn-group" ng-model="button.checkbox" ui-checkbox-group>
+                    <label class="btn btn-default"><input type="checkbox" value="left"> Left</label>
+                    <label class="btn btn-default"><input type="checkbox" value="middle"> Middle</label>
+                    <label class="btn btn-default"><input type="checkbox" value="right"> Right</label>
+                    <!-- Children get compiled by `bs-checkbox-group` to :
+                    <label class="btn btn-default"><input type="checkbox" value="left" ng-model="button.checkbox.left" bs-checkbox> Left</label>
+                    ...
+                    -->
+                </div>
+
+                <hr><label>Radios:</label>
+                <div class="btn-group" ng-model="button.radio" ui-radio-group>
+                    <label class="btn btn-default"><input type="radio" class="btn btn-default" value="0"> First</label>
+                    <label class="btn btn-default"><input type="radio" class="btn btn-default" value="1"> Second</label>
+                    <label class="btn btn-default"><input type="radio" class="btn btn-default" value="2"> Third</label>
+                    <!-- Children get compiled by `bs-radio-group` to :
+                    <label class="btn btn-default"><input type="radio" class="btn btn-default" value="left" ng-model="button.radio" bs-radio> Left</label>
+                    ...
+                    -->
+                </div>
+
+            </div>
+        </section>
+
     </div>
 
 
@@ -94,6 +136,7 @@
     <!-- ui modules -->
     <script src="js/modules/tab/tab.js"></script>
     <script src="js/modules/collapse/collapse.js"></script>
+    <script src="js/modules/button/button.js"></script>
     <script src="js/ui.js"></script>
     <!-- /ui modules -->
 

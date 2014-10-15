@@ -9,5 +9,6 @@
 
 angular.module('banki.ui', [
     'banki.ui.tab',
-	'banki.ui.collapse'
+	'banki.ui.collapse',
+	'banki.ui.button'
 ]);
