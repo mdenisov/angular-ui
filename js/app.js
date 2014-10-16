@@ -185,7 +185,8 @@
 	app.controller('FileCtrl', function($scope, FileUploader) {
 
 		var uploader = $scope.uploader = new FileUploader({
-			url: 'upload.php'
+			url: 'upload.php',
+			queueLimit: 1
 		});
 
 		// FILTERS

@@ -11,7 +11,8 @@
     var app = angular.module('dashboard', [
         'banki.ui',
 		'ui.mask',
-		'ngSanitize'
+		'ngSanitize',
+		'angularFileUpload'
     ]);
 
     app.controller('MainCtrl', function ($scope, $rootScope, $location) {
@@ -117,7 +118,7 @@
     });
 
     // select
-    app.controller('SelectCtrl', function($scope, $select, $templateCache, $http) {
+    app.controller('SelectCtrl', function($scope, $templateCache, $http) {
 
         $scope.selectedIcon = '';
         $scope.selectedIcons = ['Globe', 'Heart'];
@@ -132,6 +133,110 @@
         $scope.months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
 
     });
+
+    // datepicker
+	app.config(function($datepickerProvider) {
+		angular.extend($datepickerProvider.defaults, {
+			dateFormat: 'dd/MM/yyyy',
+			startWeek: 1
+		});
+	});
+
+    app.controller('DatepickerCtrl', function($scope, $templateCache, $http) {
+
+		$scope.selectedDate = new Date();
+		$scope.selectedDateAsNumber = Date.UTC(1986, 1, 22);
+		// $scope.fromDate = new Date();
+		// $scope.untilDate = new Date();
+		$scope.getType = function(key) {
+			return Object.prototype.toString.call($scope[key]);
+		};
+
+		$scope.clearDates = function() {
+			$scope.selectedDate = null;
+		};
+
+    });
+
+	// datepicker
+	app.controller('TimepickerCtrl', function($scope, $http) {
+
+		$scope.time = new Date(1970, 0, 1, 10, 30);
+		$scope.selectedTimeAsNumber = 10 * 36e5;
+		$scope.selectedTimeAsString = '10:00';
+		$scope.sharedDate = new Date(new Date().setMinutes(0));
+
+	});
+
+	// alert
+	app.controller('AlertCtrl', function($scope, $templateCache, $timeout, $alert) {
+
+		$scope.alert = {title: 'Holy guacamole!', content: 'Best check yo self, you\'re not looking too good.', type: 'info'};
+
+		// Service usage
+		var myAlert = $alert({title: 'Holy guacamole!', content: 'Best check yo self, you\'re not looking too good.', placement: 'top', type: 'info', keyboard: true, show: false});
+		$scope.showAlert = function() {
+			myAlert.show(); // or myAlert.$promise.then(myAlert.show) if you use an external html template
+		};
+
+	});
+
+	// file uploader
+	app.controller('FileCtrl', function($scope, FileUploader) {
+
+		var uploader = $scope.uploader = new FileUploader({
+			url: 'upload.php'
+		});
+
+		// FILTERS
+
+		uploader.filters.push({
+			name: 'imageFilter',
+			fn: function(item /*{File|FileLikeObject}*/, options) {
+				var type = '|' + item.type.slice(item.type.lastIndexOf('/') + 1) + '|';
+				return '|jpg|png|jpeg|bmp|gif|'.indexOf(type) !== -1;
+			}
+		});
+
+		// CALLBACKS
+
+		uploader.onWhenAddingFileFailed = function(item /*{File|FileLikeObject}*/, filter, options) {
+			console.info('onWhenAddingFileFailed', item, filter, options);
+		};
+		uploader.onAfterAddingFile = function(fileItem) {
+			console.info('onAfterAddingFile', fileItem);
+		};
+		uploader.onAfterAddingAll = function(addedFileItems) {
+			console.info('onAfterAddingAll', addedFileItems);
+		};
+		uploader.onBeforeUploadItem = function(item) {
+			console.info('onBeforeUploadItem', item);
+		};
+		uploader.onProgressItem = function(fileItem, progress) {
+			console.info('onProgressItem', fileItem, progress);
+		};
+		uploader.onProgressAll = function(progress) {
+			console.info('onProgressAll', progress);
+		};
+		uploader.onSuccessItem = function(fileItem, response, status, headers) {
+			console.info('onSuccessItem', fileItem, response, status, headers);
+		};
+		uploader.onErrorItem = function(fileItem, response, status, headers) {
+			console.info('onErrorItem', fileItem, response, status, headers);
+		};
+		uploader.onCancelItem = function(fileItem, response, status, headers) {
+			console.info('onCancelItem', fileItem, response, status, headers);
+		};
+		uploader.onCompleteItem = function(fileItem, response, status, headers) {
+			console.info('onCompleteItem', fileItem, response, status, headers);
+		};
+		uploader.onCompleteAll = function() {
+			console.info('onCompleteAll');
+		};
+
+		console.info('uploader', uploader);
+
+	});
 
     app.run(function($window, $rootScope, $location) {
 
