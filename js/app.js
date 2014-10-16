@@ -157,6 +157,17 @@
 
     });
 
+	// datepicker
+	app.controller('TimepickerCtrl', function($scope, $http) {
+
+		$scope.time = new Date(1970, 0, 1, 10, 30);
+		$scope.selectedTimeAsNumber = 10 * 36e5;
+		$scope.selectedTimeAsString = '10:00';
+		$scope.sharedDate = new Date(new Date().setMinutes(0));
+
+	});
+
+	// alert
 	app.controller('AlertCtrl', function($scope, $templateCache, $timeout, $alert) {
 
 		$scope.alert = {title: 'Holy guacamole!', content: 'Best check yo self, you\'re not looking too good.', type: 'info'};
