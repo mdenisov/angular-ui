@@ -17,7 +17,7 @@
 
     app.controller('MainCtrl', function ($scope, $rootScope, $location) {
 
-        $scope.$location = $location;
+
 
     });
 
@@ -181,6 +181,7 @@
 
 	});
 
+
 	// file uploader
 	app.controller('FileCtrl', function($scope, FileUploader) {
 
@@ -236,6 +237,26 @@
 		};
 
 		console.info('uploader', uploader);
+
+	});
+
+
+	// alert
+	app.controller('FormCtrl', function($scope) {
+
+		$scope.phones = [
+			{
+				'number': 1234567890,
+				'name': 'dgsdgds gdsg dg dfg'
+			}
+		];
+
+		$scope.addPhoneField = function () {
+			$scope.phones.push({
+				'number': '',
+				'name': ''
+			});
+		}
 
 	});
 

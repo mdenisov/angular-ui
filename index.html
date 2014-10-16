@@ -340,11 +340,14 @@
 
             <div class="ui-example">
 
-                <input type="file" nv-file-select uploader="uploader"/><br/>
+                <span class="file-input-wrapper btn btn-primary"><span>Choose File</span><input type="file" nv-file-select uploader="uploader" title="Choose File" class="btn-primary"></span>
+
+                <br/>
+
                 <ul style="margin: 0; padding: 0; list-style: none;">
                     <li ng-repeat="item in uploader.queue">
                         <strong>{{ item.file.name }}</strong>
-                        <div ng-show="uploader.isHTML5" ui-thumb="{ file: item._file, height: 100 }"></div>
+                        <div ng-show="uploader.isHTML5" ui-thumb="{ file: item._file, height: 100 }" style="margin: 10px 0;"></div>
                         <button type="button" class="btn btn-success btn-xs" ng-click="item.upload()" ng-disabled="item.isReady || item.isUploading || item.isSuccess">
                             <span class="glyphicon glyphicon-upload"></span> Upload
                         </button>
@@ -356,6 +359,30 @@
                         </button>
                     </li>
                 </ul>
+
+            </div>
+
+        </section>
+
+
+        <section class="ui-section" ng-controller="FormCtrl">
+
+            <h1 id="fields" class="page-header">Duplicate fields</h1>
+
+            <div class="ui-example">
+
+                <div ng-repeat="phone in phones">
+                    <div class="row" style="margin-bottom: 10px;">
+                        <div class="col-xs-2">
+                            <input type="text" class="form-control" ui-mask="(999) 999-9999" ng-model="phone.number">
+                        </div>
+                        <div class="col-xs-4">
+                            <input type="text" class="form-control" placeholder="Описание" ng-model="phone.name">
+                        </div>
+                    </div>
+                </div>
+
+                <button type="button" class="btn btn-success" ng-click="addPhoneField()"><i class="fa fa-plus"></i> Add field</button>
 
             </div>
 
