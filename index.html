@@ -277,6 +277,23 @@
 
         </section>
 
+
+        <section class="ui-section" ng-controller="AlertCtrl">
+
+            <h1 id="alert" class="page-header">Alert <small>alert.js</small></h1>
+
+            <div class="ui-example">
+
+                <button type="button" class="btn btn-lg btn-primary" data-placement="top-right" data-container="body" data-duration="3" ui-alert="alert">Click to toggle alert</button>
+
+                <button type="button" class="btn btn-lg btn-primary" data-placement="top-right" title="{{alert.title}}" data-content="{{alert.content}}" data-type="success" data-container="body" ui-alert>Click to toggle alert</button>
+
+                <button type="button" class="btn btn-lg btn-danger" data-placement="top" data-duration="3" data-animation="am-fade-and-slide-top" data-container="body" data-keyboard="true" ui-alert="alert">Custom alert</button>
+
+            </div>
+
+        </section>
+
     </div>
 
 
@@ -306,6 +323,7 @@
     <script src="js/modules/dropdown/dropdown.js"></script>
     <script src="js/modules/select/select.js"></script>
     <script src="js/modules/datepicker/datepicker.js"></script>
+    <script src="js/modules/alert/alert.js"></script>
     <script src="js/ui.js"></script>
 
 </body>

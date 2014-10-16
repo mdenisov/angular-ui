@@ -16,5 +16,6 @@ angular.module('banki.ui', [
     'banki.ui.modal',
     'banki.ui.dropdown',
     'banki.ui.select',
-	'banki.ui.datepicker'
+	'banki.ui.datepicker',
+	'banki.ui.alert'
 ]);
