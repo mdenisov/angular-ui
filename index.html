@@ -333,11 +333,35 @@
 
         </section>
 
+
+        <section class="ui-section" ng-controller="FileCtrl">
+
+            <h1 id="file" class="page-header">File Uploader</h1>
+
+            <div class="ui-example">
+
+                <input type="file" nv-file-select uploader="uploader"/><br/>
+                <ul>
+                    <li ng-repeat="item in uploader.queue">
+                        <strong>{{ item.file.name }}</strong>
+                        <div ng-show="uploader.isHTML5" ui-thumb="{ file: item._file, height: 100 }"></div>
+                        <button type="button" class="btn btn-success btn-xs" ng-click="item.upload()" ng-disabled="item.isReady || item.isUploading || item.isSuccess">
+                            <span class="glyphicon glyphicon-upload"></span> Upload
+                        </button>
+                    </li>
+                </ul>
+
+            </div>
+
+        </section>
+
     </div>
 
 
     <script src="vendor/angular/angular.js"></script>
     <script src="vendor/angular-sanitize/angular-sanitize.js"></script>
+    <script src="vendor/angular-file-upload/angular-file-upload.js"></script>
+    <script src="vendor/es5-shim/es5-sham.js"></script>
 
     <!-- plugins -->
     <script src="vendor/angular-animate/angular-animate.js"></script>
@@ -365,6 +389,8 @@
     <script src="js/modules/timepicker/timepicker.js"></script>
     <script src="js/modules/alert/alert.js"></script>
     <script src="js/ui.js"></script>
+
+    <script src="js/utils/image-thumb.js"></script>
 
 </body>
 </html>

@@ -13,6 +13,7 @@
         "angular-route": "^1.2.21",
         "angular-sanitize": "^1.2.21",
         "angular-scenario": "^1.2.21",
+		"angular-file-upload": "^1.1.1",
         "highlightjs": "^8.0.0",
         "jquery": "^2.1.1",
         "font-awesome": "^4.1.0",
