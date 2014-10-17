@@ -1671,6 +1671,15 @@
 .fa-meanpath:before {
   content: "\f20c";
 }
+[tabindex="-1"] {
+  outline: none;
+}
+a[ng-click] {
+  cursor: pointer;
+}
+a {
+  cursor: pointer;
+}
 .navbar {
   border-width: 0;
 }
@@ -1875,138 +1884,12 @@ input:focus {
 .popover {
   color: #2c3e50;
 }
-a {
-  cursor: pointer;
-}
 .navbar {
   margin-top: 20px;
   margin-bottom: 20px;
 }
 .ui-section {
   margin-bottom: 60px;
-}
-body .modal {
-  overflow-y: hidden;
-}
-body.modal-open {
-  overflow-y: visible !important;
-}
-[tabindex="-1"] {
-  outline: none;
-}
-a[ng-click] {
-  cursor: pointer;
-}
-.panel-collapse.am-collapse {
-  -webkit-animation-duration: 0.3s;
-  animation-duration: 0.3s;
-  -webkit-animation-timing-function: ease;
-  animation-timing-function: ease;
-  -webkit-animation-fill-mode: backwards;
-  animation-fill-mode: backwards;
-  overflow: hidden;
-}
-.panel-collapse.am-collapse.in-remove {
-  -webkit-animation-name: collapse;
-  animation-name: collapse;
-  display: block;
-}
-.panel-collapse.am-collapse.in-add {
-  -webkit-animation-name: expand;
-  animation-name: expand;
-}
-.panel-collapse.am-collapse2 {
-  -webkit-transition: 0.3s ease max-height;
-  -o-transition: 0.3s ease max-height;
-  transition: 0.3s ease max-height;
-  max-height: 100px;
-  overflow: hidden;
-}
-.panel-collapse.am-collapse2.in-remove {
-  max-height: 100px;
-  display: block;
-}
-.panel-collapse.am-collapse2.in-add {
-  max-height: 0px;
-}
-@keyframes expand {
-  from {
-    max-height: 0px;
-  }
-  to {
-    max-height: 100px;
-  }
-}
-@keyframes collapse {
-  from {
-    max-height: 100px;
-  }
-  to {
-    max-height: 0px;
-  }
-}
-.tab-pane.am-fade {
-  -webkit-animation-duration: 0.3s;
-  animation-duration: 0.3s;
-  -webkit-animation-timing-function: ease;
-  animation-timing-function: ease;
-  -webkit-animation-fill-mode: backwards;
-  animation-fill-mode: backwards;
-  opacity: 1;
-}
-.tab-pane.am-fade.active-remove {
-  display: none !important;
-}
-.tab-pane.am-fade.active-add {
-  -webkit-animation-name: fadeIn;
-  animation-name: fadeIn;
-}
-.modal.center .modal-dialog {
-  position: fixed;
-  top: 40%;
-  left: 50%;
-  min-width: 320px;
-  max-width: 630px;
-  width: 50%;
-  -webkit-transform: translate(-50%, -50%);
-  -ms-transform: translate(-50%, -50%);
-  -o-transform: translate(-50%, -50%);
-  transform: translate(-50%, -50%);
-}
-.modal {
-  -webkit-animation: noop !important;
-  -o-animation: noop !important;
-  animation: noop !important;
-}
-.modal.am-fade-and-slide-top .modal-dialog {
-  -webkit-animation-duration: 0.3s;
-  animation-duration: 0.3s;
-  -webkit-animation-timing-function: ease-in-out;
-  animation-timing-function: ease-in-out;
-  -webkit-animation-fill-mode: backwards;
-  animation-fill-mode: backwards;
-  -webkit-animation-name: fadeAndSlideFromTop;
-  animation-name: fadeAndSlideFromTop;
-}
-.modal.am-fade-and-slide-top.ng-enter .modal-dialog {
-  visibility: hidden;
-  -webkit-animation-name: fadeAndSlideFromTop;
-  animation-name: fadeAndSlideFromTop;
-}
-.modal.am-fade-and-slide-top.ng-enter-active .modal-dialog {
-  visibility: visible;
-}
-.modal.am-fade-and-slide-top.ng-leave .modal-dialog {
-  -webkit-animation-name: fadeAndSlideToTop;
-  animation-name: fadeAndSlideToTop;
-}
-@keyframes noop {
-  from {
-    opacity: 1;
-  }
-  to {
-    opacity: 1;
-  }
 }
 .file-input-wrapper {
   overflow: hidden;

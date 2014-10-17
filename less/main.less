@@ -5,6 +5,21 @@
 
 @import url("http://fonts.googleapis.com/css?family=Lato:400,700,400italic");
 
+
+[tabindex="-1"] {
+	outline: none;
+}
+
+a[ng-click] {
+	cursor: pointer;
+}
+
+a {
+	cursor: pointer;
+}
+
+
+
 // Navbar =====================================================================
 
 .navbar {
@@ -270,13 +285,12 @@ input, {
 
 
 
-a {
-	cursor: pointer;
-}
+
+
 
 .navbar {
-    margin-top: 20px;
-    margin-bottom: 20px;
+	margin-top: 20px;
+	margin-bottom: 20px;
 }
 
 .ui-section {
@@ -285,152 +299,6 @@ a {
 
 
 
-
-
-
-body {
-    .modal {
-        overflow-y: hidden;
-    }
-    &.modal-open {
-        overflow-y: visible !important;
-    }
-}
-
-[tabindex="-1"] {
-    outline: none;
-}
-
-a[ng-click] {
-    cursor: pointer;
-}
-
-
-.panel-collapse.am-collapse {
-	.animation-duration(.3s);
-	.animation-timing-function(ease);
-	.animation-fill-mode(backwards);
-
-    overflow: hidden;
-
-    &.in-remove {
-        .animation-name(collapse);
-
-        display: block;
-    }
-    &.in-add {
-        .animation-name(expand);
-    }
-}
-
-.panel-collapse.am-collapse2 {
-    .transition(.3s ease max-height);
-
-    max-height: 100px;
-    overflow: hidden;
-
-    &.in-remove {
-        max-height: 100px;
-        display: block;
-    }
-    &.in-add {
-        max-height: 0px;
-    }
-}
-
-@keyframes expand {
-    from {
-        max-height: 0px;
-    }
-    to {
-        max-height: 100px;
-    }
-}
-
-@keyframes collapse {
-    from {
-        max-height: 100px;
-    }
-    to {
-        max-height: 0px;
-    }
-}
-
-
-.tab-pane.am-fade {
-    .animation-duration(.3s);
-    .animation-timing-function(ease);
-    .animation-fill-mode(backwards);
-    opacity: 1;
-
-    &.active-remove {
-        display: none !important;
-    }
-    &.active-add {
-        .animation-name(fadeIn);
-    }
-}
-
-
-// fix bootstrap
-.modal {
-    &.center {
-        .modal-dialog {
-            position: fixed;
-            top: 40%;
-            left: 50%;
-            min-width: 320px;
-            max-width: 630px;
-            width: 50%;
-
-			.translate(-50%, -50%);
-        }
-    }
-}
-
-.modal {
-
-    .animation(noop) !important;
-
-    &.am-fade-and-slide-top {
-
-        .modal-dialog {
-			.animation-duration(.3s);
-			.animation-timing-function(ease-in-out);
-			.animation-fill-mode(backwards);
-			.animation-name(fadeAndSlideFromTop);
-        }
-
-        &.ng-enter {
-            .modal-dialog {
-                visibility: hidden;
-				.animation-name(fadeAndSlideFromTop);
-            }
-        }
-        &.ng-enter-active {
-            .modal-dialog {
-                visibility: visible;
-            }
-        }
-        &.ng-leave {
-            //@todo
-            .modal-dialog {
-				.animation-name(fadeAndSlideToTop);
-            }
-        }
-
-    }
-
-}
-
-@keyframes noop {
-    from {
-        opacity: 1;
-    }
-    to {
-        opacity: 1;
-    }
-}
 
 .file-input-wrapper {
 	overflow: hidden;
