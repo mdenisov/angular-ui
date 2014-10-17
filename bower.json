@@ -2,22 +2,12 @@
     "name": "angular-page",
     "version": "0.0.1",
     "dependencies": {
-        "angular": "^1.2.21",
-        "bootstrap": "^3.2.0",
-        "angular-motion": "^0.3.3"
+		"angular-bootstrap": "^0.11.2"
     },
     "devDependencies": {
-        "angular-animate": "^1.2.21",
-        "angular-i18n": "^1.2.21",
-        "angular-mocks": "^1.2.21",
-        "angular-route": "^1.2.21",
-        "angular-sanitize": "^1.2.21",
-        "angular-scenario": "^1.2.21",
+		"bootstrap": "3.2.0",
+		"font-awesome": "^4.1.0",
 		"angular-file-upload": "^1.1.1",
-        "highlightjs": "^8.0.0",
-        "jquery": "^2.1.1",
-        "font-awesome": "^4.1.0",
-        "fastclick": "^1.0.3",
-        "bootstrap-additions": "~0.2.3"
+		"angular-route": "^1.2.21"
     }
 }

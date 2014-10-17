@@ -30,7 +30,7 @@
 			{title:'About', content: 'Etsy mixtape wayfarers, ethical wes anderson tofu before they sold out mcsweeney\'s organic lomo retro fanny pack lo-fi farm-to-table readymade.'}
 		];
 
-		$scope.tabs.activeTab = 1;
+		$scope.tabs.activeTab = 0;
 
 	});
 
@@ -43,7 +43,7 @@
 			{title:'Collapsible Group Item #3', body: 'Etsy mixtape wayfarers, ethical wes anderson tofu before they sold out mcsweeney\'s organic lomo retro fanny pack lo-fi farm-to-table readymade.'}
 		];
 
-		$scope.panels.activePanel = 1;
+		$scope.panels.activePanel = 0;
 
 	});
 
