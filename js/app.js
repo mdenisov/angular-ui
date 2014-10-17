@@ -11,7 +11,8 @@
     var app = angular.module('dashboard', [
 		'ui.bootstrap',
 		'ui.mask',
-		'angularFileUpload'
+		'angularFileUpload',
+		'ngTagsInput'
     ]);
 
     app.controller('MainCtrl', function ($scope, $rootScope, $location, $http, $modal, FileUploader) {
@@ -278,7 +279,16 @@
 				'number': '',
 				'name': ''
 			});
-		}
+		};
+
+
+		// tags
+		$scope.tags = [
+			{ text: 'just' },
+			{ text: 'some' },
+			{ text: 'cool' },
+			{ text: 'tags' }
+		];
 	});
 
 	app.controller('ModalInstanceCtrl', function ($scope, $modalInstance, items) {

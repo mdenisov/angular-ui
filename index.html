@@ -388,9 +388,9 @@
                     <div class="col-md-6">
                         <p class="input-group">
                             <input type="text" class="form-control" datepicker-popup="{{format}}" ng-model="dt" is-open="opened" min-date="minDate" max-date="'2015-06-22'" datepicker-options="dateOptions" date-disabled="disabled(date, mode)" ng-required="true" close-text="Close" />
-              <span class="input-group-btn">
-                <button type="button" class="btn btn-default" ng-click="open($event)"><i class="glyphicon glyphicon-calendar"></i></button>
-              </span>
+                            <span class="input-group-btn">
+                                <button type="button" class="btn btn-default" ng-click="openinModal($event)"><i class="glyphicon glyphicon-calendar"></i></button>
+                            </span>
                         </p>
                     </div>
                 </div>
@@ -510,6 +510,19 @@
 
         </section>
 
+
+        <section class="ui-section" ng-controller1="FormCtrl">
+
+            <h1 id="tags" class="page-header">Tags</h1>
+
+            <div class="ui-example">
+
+                <tags-input ng-model="tags"></tags-input>
+
+            </div>
+
+        </section>
+
     </div>
 
 
@@ -519,6 +532,7 @@
     <script src="vendor/angular-bootstrap/ui-bootstrap.js"></script>
     <script src="vendor/angular-bootstrap/ui-bootstrap-tpls.js"></script>
     <script src="vendor/angular-file-upload/angular-file-upload.js"></script>
+    <script src="vendor/ng-tags-input/ng-tags-input.js"></script>
     <script src="js/utils/mask.js"></script>
 
     <!-- utils -->
