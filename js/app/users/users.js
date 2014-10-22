@@ -4,9 +4,77 @@ angular.module('users', [
         'dataResource'
     ])
 
+//    .config(['$routeProvider', function ($routeProvider) {
+//        $routeProvider.when('/users', {
+//            templateUrl:'js/app/users/users-list.tpl.html',
+//            controller:'UsersViewCtrl',
+//            resolve:{
+//                users:['Users', function (Users) {
+//                    return Users.all();
+//                }]
+//            }
+//        });
+//    }])
+//
+//    .controller('UsersViewCtrl', ['$scope', '$location', 'users',
+//        function ($scope, $location, users) {
+//            $scope.users = users;
+//        }
+//    ])
+//
+//    .factory('Users', ['dataResource',
+//        function ($dataResource) {
+//
+//            var Users = $dataResource('users');
+//
+//            Users.forUser = function(userId, successcb, errorcb) {
+//                //TODO: get projects for this user only (!)
+//                return Projects.query({}, successcb, errorcb);
+//            };
+//
+//            Users.prototype.isProductOwner = function (userId) {
+//                return this.productOwner === userId;
+//            };
+//            Users.prototype.canActAsProductOwner = function (userId) {
+//                return !this.isScrumMaster(userId) && !this.isDevTeamMember(userId);
+//            };
+//            Users.prototype.isScrumMaster = function (userId) {
+//                return this.scrumMaster === userId;
+//            };
+//            Users.prototype.canActAsScrumMaster = function (userId) {
+//                return !this.isProductOwner(userId);
+//            };
+//            Users.prototype.isDevTeamMember = function (userId) {
+//                return this.teamMembers.indexOf(userId) >= 0;
+//            };
+//            Users.prototype.canActAsDevTeamMember = function (userId) {
+//                return !this.isProductOwner(userId);
+//            };
+//
+//            Users.prototype.getRoles = function (userId) {
+//                var roles = [];
+//                if (this.isProductOwner(userId)) {
+//                    roles.push('PO');
+//                } else {
+//                    if (this.isScrumMaster(userId)){
+//                        roles.push('SM');
+//                    }
+//                    if (this.isDevTeamMember(userId)){
+//                        roles.push('DEV');
+//                    }
+//                }
+//                return roles;
+//            };
+//
+//            return Users;
+//        }
+//    ]);
+
+
+
     .config(['crudRouteProvider', function (crudRouteProvider) {
 
-        crudRouteProvider.routesFor('Users', 'users')
+        crudRouteProvider.routesFor('Users', '', '', 'js/app')
             .whenList({
                 users: ['Users', function(Users) { return Users.all(); }]
             })
@@ -29,159 +97,46 @@ angular.module('users', [
         };
 
         return userResource;
+    }])
+
+    .controller('UsersListCtrl', ['$scope', 'crudListMethods', 'users', function ($scope, crudListMethods, users) {
+        $scope.users = users;
+
+        angular.extend($scope, crudListMethods('/users'));
+
+        $scope.remove = function(user, $index, $event) {
+            // Don't let the click bubble up to the ng-click on the enclosing div, which will try to trigger
+            // an edit of this item.
+            $event.stopPropagation();
+
+            // Remove this user
+            user.$remove(function() {
+                // It is gone from the DB so we can remove it from the local list too
+                $scope.users.splice($index,1);
+//                i18nNotifications.pushForCurrentRoute('crud.user.remove.success', 'success', {id : user.$id()});
+            }, function() {
+//                i18nNotifications.pushForCurrentRoute('crud.user.remove.error', 'error', {id : user.$id()});
+            });
+        };
+    }])
+
+    .controller('UsersEditCtrl', ['$scope', '$location', 'user', function ($scope, $location, user) {
+
+        $scope.user = user;
+        $scope.password = user.password;
+
+        $scope.onSave = function (user) {
+//            i18nNotifications.pushForNextRoute('crud.user.save.success', 'success', {id : user.$id()});
+            $location.path('/users');
+        };
+
+        $scope.onError = function() {
+//            i18nNotifications.pushForCurrentRoute('crud.user.save.error', 'error');
+        };
+
+        $scope.onRemove = function(user) {
+//            i18nNotifications.pushForNextRoute('crud.user.remove.success', 'success', {id : user.$id()});
+            $location.path('/users');
+        };
+
     }]);
-
-
-//angular.module('users', [], ['$routeProvider',
-//        function($routeProvider){
-//
-//            $routeProvider
-//                .when('/', {
-//                    templateUrl: 'js/app/users/users.tpl.html',
-//                    controller: 'UsersCtrl',
-//    //                resolve: {
-//    //                    projects:['Projects', function(Projects){
-//    ////                        return Projects.all();
-//    //                    }]
-//    //                }
-//                })
-//                .when('/users/new', {
-//                    controller : 'NewUserCtrl',
-//                    templateUrl : 'js/app/users/usernew.tpl.html'
-//                })
-//                .when('/users/edit/:userId', {
-//                    controller : 'EditUserCtrl',
-//                    templateUrl : 'js/app/users/useredit.tpl.html'
-//                })
-//                .when('/users', {
-//                    templateUrl: 'js/app/users/users.tpl.html',
-//                    controller: 'UsersCtrl'
-//                })
-//                .when('/users/:userId', {
-//                    templateUrl: 'js/app/users/user.tpl.html',
-//                    controller : 'UsersByIdCtrl'
-//                })
-//
-//        }
-//    ])
-//
-//    .controller("UsersCtrl", [ '$scope', 'userservice', '$location',
-//        function($scope, userservice, $location) {
-//            userservice.getUsers( $scope );
-//
-//            $scope.deleteUser = function(user, $event) {
-//                var newuser = { 'id':user.id };
-//                // Call UserService to delete user
-//                //
-//                userservice.deleteUser ( newuser, $scope );
-//
-//                $location.path('/users');
-//            };
-//        }
-//    ])
-//
-//    .controller("UsersByIdCtrl", [ '$scope','userservice', '$routeParams',
-//        function($scope, userservice, $routeParams) {
-//            userservice.getUser($routeParams.userId, $scope);
-//        }
-//    ])
-//
-//    .controller("NewUserCtrl", [ '$scope','userservice', '$location',
-//        function($scope, userservice, $location) {
-////            userservice.getUsers( $scope );
-//
-//            $scope.createNewUser = function(){
-//                var newuser = { 'name':$scope.name, 'email':$scope.email, 'role':$scope.role };
-//                // Call UserService to create a new user
-//                //
-//                userservice.createUser ( newuser, $scope );
-//
-//                $location.path('/users');
-//            };
-//        }
-//    ])
-//
-//    .controller("EditUserCtrl", [ '$scope','userservice', '$routeParams', '$location',
-//        function($scope, userservice, $routeParams, $location) {
-//            userservice.getUser($routeParams.userId, $scope);
-//
-//            $scope.createNewUser = function() {
-//                var newuser = { 'id':$scope.user.id, 'name':$scope.user.name, 'email':$scope.user.email, 'role':$scope.user.role };
-//                // Call UserService to create a new user
-//                //
-//                userservice.updateUser ( newuser, $scope );
-//            };
-//
-//            $scope.deleteUser = function(){
-//                var newuser = { 'id':$scope.user.id };
-//                // Call UserService to create a new user
-//                //
-//                userservice.deleteUser ( newuser, $scope );
-//
-//                $location.path('/users');
-//            };
-//        }
-//    ])
-//
-//    .factory( 'userservice', [ '$resource',
-//        function( $resource ){
-//            return new User( $resource );
-//        }
-//    ]);
-//
-//function User( resource ) {
-//
-//    this.resource = resource;
-//
-//    this.createUser = function ( user, scope ) {
-//        //
-//        // Save Action Method
-//        //
-//        var User = resource('/api/index.php/users/');
-//        User.save(user, function(response){
-//            scope.message = response.message;
-//        });
-//    };
-//
-//    this.updateUser = function ( user, scope ) {
-//        //
-//        // Update Action Method
-//        //
-//        var User = resource('/api/index.php/users/:userId', null, {
-//            update: {method: 'PUT'}
-//        });
-//
-//        User.update({ userId:user.id }, user);
-//    };
-//
-//    this.getUser = function ( id, scope ) {
-//        //
-//        // GET Action Method
-//        //
-//        var User = resource('/api/index.php/users/:userId', {userId:'@userId'});
-//        User.get( {userId:id}, function(user){
-//            scope.user = user;
-//        })
-//    };
-//
-//    this.getUsers = function( scope ) {
-//        //
-//        // Query Action Method
-//        //
-//        var Users = resource('api/index.php/users/');
-//        Users.query(function(users){
-//            scope.users = users;
-//        });
-//    };
-//
-//    this.deleteUser = function ( user, scope ) {
-//        //
-//        // Delete Action Method
-//        //
-//        var User = resource('/api/index.php/users/:userId', null, {
-//            delete: {method: 'DELETE'}
-//        });
-//
-//        User.delete({ userId:user.id });
-//    };
-//}

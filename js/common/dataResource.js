@@ -69,7 +69,7 @@ angular.module('dataResource', [])
                         });
                     });
                     return Resource.query({
-                        _id: {
+                        id: {
                             $in: qin
                         }
                     }, successcb, errorcb);
@@ -78,8 +78,9 @@ angular.module('dataResource', [])
                 //instance methods
 
                 Resource.prototype.$id = function() {
-                    if (this._id && this._id.$oid) {
-                        return this._id.$oid;
+//                    if (this.id && this.id.$oid) {
+                    if (this.id) {
+                        return this.id;
                     }
                 };
 
@@ -92,7 +93,7 @@ angular.module('dataResource', [])
 
                 Resource.prototype.$update = function(successcb, errorcb) {
                     var httpPromise = $http.put(url + "/" + this.$id(), angular.extend({}, this, {
-                        _id: undefined
+                        id: undefined
                     }), {
                         params: defaultParams
                     });

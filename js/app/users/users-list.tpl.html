@@ -8,7 +8,7 @@
 
 <div class="panel panel-default">
     <div class="panel-body">
-        <a href="#/users/new" class="btn btn-primary btn-sm pull-right" role="button">Add User</a>
+        <button class="btn btn-primary btn-sm pull-right" role="button" ng-click="new()">Add User</button>
     </div>
 </div>
 
@@ -22,15 +22,19 @@
         </tr>
     </thead>
     <tbody>
-        <tr ng-repeat="user in users">
+        <tr ng-repeat="user in users" ng-click="edit(user.id)">
             <td>
                 <a href="#/users/{{user.id}}">{{user.name}}</a>
             </td>
             <td>{{user.email}}</td>
             <td>{{user.role}}</td>
             <td>
-                <a href="#/users/edit/{{user.id}}"><span class="glyphicon glyphicon-pencil"></span></a>
-                <a ng-click="deleteUser(user, $event)"><span class="glyphicon glyphicon-trash"></span></a>
+                <button class="btn btn-sm btn-default edit" ng-click="edit(user.id)">
+                    <span class="glyphicon glyphicon-pencil"></span>
+                </button>
+                <button class="btn btn-sm btn-danger remove" ng-click="remove(user, $index, $event)">
+                    <span class="glyphicon glyphicon-trash"></span>
+                </button>
             </td>
         </tr>
         <tr ng-show="!users.length">

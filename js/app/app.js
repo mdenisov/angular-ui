@@ -12,7 +12,7 @@ angular.module('app', [
     })
 
     .config(['$routeProvider', function ($routeProvider) {
-        $routeProvider.otherwise({redirectTo:'/users'});
+        $routeProvider.otherwise({redirectTo:'/'});
     }])
 
     .controller('AppCtrl', ['$scope',
