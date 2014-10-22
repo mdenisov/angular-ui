@@ -3,13 +3,17 @@ angular.module('app', [
         'ngRoute',
         'ngResource',
 
+        'directives.crud',
         'users'
     ])
 
-    .constant('MONGOLAB_CONFIG', {
-        baseUrl: '/databases/',
-        dbName: 'dashboard'
+    .constant('CONFIG', {
+        baseUrl: '/api/index.php'
     })
+
+    .config(['$routeProvider', function ($routeProvider) {
+        $routeProvider.otherwise({redirectTo:'/users'});
+    }])
 
     .controller('AppCtrl', ['$scope',
         function($scope) {

@@ -7838,6 +7838,9 @@ button.close {
 .fa-meanpath:before {
   content: "\f20c";
 }
+.full-width {
+  width: 100%;
+}
 [tabindex="-1"] {
   outline: none;
 }
