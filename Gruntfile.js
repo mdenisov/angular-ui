@@ -1,191 +1,191 @@
 module.exports = function(grunt) {
-	var cssMap = {
-			'dist/ui.css': [
-				'css/*'
-			]
-		},
 
-		jsMap = {
-			'dist/ui.js': [
-				'js/ui.js',
-				'js/modules/**/*.js',
-				'js/helpers/*.js',
-				'js/utils/*.js'
-			],
-			'dist/main.js': [
-				'js/app.js'
-			]
-		},
+    // These plugins provide necessary tasks.
+    require('load-grunt-tasks')(grunt, { scope: 'devDependencies' });
+    require('time-grunt')(grunt);
 
-		watchedCssFiles = (function() {
-			var ar = [];
+    // Default task.
+//    grunt.registerTask('default', ['jshint', 'build', 'karma:unit']);
+    grunt.registerTask('default', ['jshint', 'build']);
+    grunt.registerTask('build', ['clean', 'html2js', 'concat', 'recess:build', 'copy:assets']);
+    grunt.registerTask('release', ['clean', 'html2js', 'uglify', 'jshint', 'karma:unit', 'concat:index', 'recess:min', 'copy:assets']);
+    grunt.registerTask('test-watch', ['karma:watch']);
 
-			for (var item in cssMap) {
-				if (cssMap.hasOwnProperty(item)) {
-					ar = ar.concat(cssMap[item]);
-				}
-			}
+    // Print a timestamp (useful for when watching)
+    grunt.registerTask('timestamp', function() {
+        grunt.log.subhead(Date());
+    });
 
-			return ar;
-		})(),
+    var karmaConfig = function(configFile, customOptions) {
+        var options = {
+            configFile: configFile,
+            keepalive: true
+        };
+        var travisOptions = process.env.TRAVIS && {
+            browsers: ['Firefox'],
+            reporters: 'dots'
+        };
+        return grunt.util._.extend(options, customOptions, travisOptions);
+    };
 
-		watchedJsFiles = (function() {
-			var ar = [];
+    // Project configuration.
+    grunt.initConfig({
+        distdir: 'dist',
+        pkg: grunt.file.readJSON('package.json'),
+        banner: '/*! <%= pkg.title || pkg.name %> - v<%= pkg.version %> - <%= grunt.template.today("yyyy-mm-dd") %>\n' + '<%= pkg.homepage ? " * " + pkg.homepage + "\\n" : "" %>' + ' * Copyright (c) <%= grunt.template.today("yyyy") %> <%= pkg.author %>;\n' + ' * Licensed <%= _.pluck(pkg.licenses, "type").join(", ") %>\n */\n',
+        src: {
+            js: ['src/**/*.js'],
+            jsTpl: ['<%= distdir %>/templates/**/*.js'],
+            specs: ['test/**/*.spec.js'],
+            scenarios: ['test/**/*.scenario.js'],
+            html: ['src/index.html'],
+            tpl: {
+                app: ['src/app/**/*.tpl.html'],
+                common: ['src/common/**/*.tpl.html']
+            },
+            less: ['src/less/stylesheet.less'], // recess:build doesn't accept ** in its file patterns
+            lessWatch: ['src/less/**/*.less']
+        },
+        clean: ['<%= distdir %>/*'],
+        copy: {
+            assets: {
+                files: [{
+                    dest: '<%= distdir %>',
+                    src: '**',
+                    expand: true,
+                    cwd: 'src/assets/'
+                }]
+            }
+        },
+        karma: {
+            unit: {
+                options: karmaConfig('test/config/unit.js')
+            },
+            watch: {
+                options: karmaConfig('test/config/unit.js', {
+                    singleRun: false,
+                    autoWatch: true
+                })
+            }
+        },
+        html2js: {
+            app: {
+                options: {
+                    base: 'src/app'
+                },
+                src: ['<%= src.tpl.app %>'],
+                dest: '<%= distdir %>/templates/app.js',
+                module: 'templates.app'
+            },
+            common: {
+                options: {
+                    base: 'src/common'
+                },
+                src: ['<%= src.tpl.common %>'],
+                dest: '<%= distdir %>/templates/common.js',
+                module: 'templates.common'
+            }
+        },
+        concat: {
+            dist: {
+                options: {
+                    banner: "<%= banner %>"
+                },
+                src: ['<%= src.js %>', '<%= src.jsTpl %>'],
+                dest: '<%= distdir %>/<%= pkg.name %>.js'
+            },
+            index: {
+                src: ['src/index.html'],
+                dest: '<%= distdir %>/index.html',
+                options: {
+                    process: true
+                }
+            },
+            angular: {
+                src: ['vendor/angular/angular.js', 'vendor/angular/angular-route.js'],
+                dest: '<%= distdir %>/angular.js'
+            },
+            mongo: {
+                src: ['vendor/mongolab/*.js'],
+                dest: '<%= distdir %>/mongolab.js'
+            },
+            bootstrap: {
+                src: ['vendor/angular-ui/bootstrap/*.js'],
+                dest: '<%= distdir %>/bootstrap.js'
+            },
+            jquery: {
+                src: ['vendor/jquery/*.js'],
+                dest: '<%= distdir %>/jquery.js'
+            }
+        },
+        uglify: {
+            dist: {
+                options: {
+                    banner: "<%= banner %>"
+                },
+                src: ['<%= src.js %>', '<%= src.jsTpl %>'],
+                dest: '<%= distdir %>/<%= pkg.name %>.js'
+            },
+            angular: {
+                src: ['<%= concat.angular.src %>'],
+                dest: '<%= distdir %>/angular.js'
+            },
+            mongo: {
+                src: ['vendor/mongolab/*.js'],
+                dest: '<%= distdir %>/mongolab.js'
+            },
+            bootstrap: {
+                src: ['vendor/angular-ui/bootstrap/*.js'],
+                dest: '<%= distdir %>/bootstrap.js'
+            },
+            jquery: {
+                src: ['vendor/jquery/*.js'],
+                dest: '<%= distdir %>/jquery.js'
+            }
+        },
+        recess: {
+            build: {
+                files: {
+                    '<%= distdir %>/<%= pkg.name %>.css': ['<%= src.less %>']
+                },
+                options: {
+                    compile: true
+                }
+            },
+            min: {
+                files: {
+                    '<%= distdir %>/<%= pkg.name %>.css': ['<%= src.less %>']
+                },
+                options: {
+                    compress: true
+                }
+            }
+        },
+        watch: {
+            all: {
+                files: ['<%= src.js %>', '<%= src.specs %>', '<%= src.lessWatch %>', '<%= src.tpl.app %>', '<%= src.tpl.common %>', '<%= src.html %>'],
+                tasks: ['default', 'timestamp']
+            },
+            build: {
+                files: ['<%= src.js %>', '<%= src.specs %>', '<%= src.lessWatch %>', '<%= src.tpl.app %>', '<%= src.tpl.common %>', '<%= src.html %>'],
+                tasks: ['build', 'timestamp']
+            }
+        },
+        jshint: {
+            files: ['gruntFile.js', '<%= src.js %>', '<%= src.jsTpl %>', '<%= src.specs %>', '<%= src.scenarios %>'],
+            options: {
+                curly: true,
+                eqeqeq: true,
+                immed: true,
+                latedef: true,
+                newcap: true,
+                noarg: true,
+                sub: true,
+                boss: true,
+                eqnull: true,
+                globals: {}
+            }
+        }
+    });
 
-			for (var item in jsMap) {
-				if (jsMap.hasOwnProperty(item)) {
-					ar = ar.concat(jsMap[item]);
-				}
-			}
-
-			return ar;
-		})();
-
-
-	// Задачи
-	grunt.initConfig({
-		pkg: grunt.file.readJSON('package.json'),
-		banner: '/*!\n' +
-			' * Main Angular.Banki.UI v<%= pkg.version %> (<%= pkg.homepage %>)\n' +
-			' * Copyright 2004-<%= grunt.template.today("yyyy") %>.\n' +
-			' */\n',
-
-		/* todo
-		stylus: {
-			// Компиляция Stylus в CSS
-		},
-
-		less: {
-			// Компиляция Less в CSS
-		},
-		*/
-
-		concat: {
-			options: {
-				separator: '\n\n\n'
-				// sourceMap: true
-			},
-
-			// Склеивание css-файлов
-			css: {
-				files: cssMap
-			},
-
-			// Склеивание js-файлов
-			js: {
-				files: jsMap
-			}
-		},
-
-		watch: {
-			/*
-			// Перекомпиляция стилей при изменении styl-файлов
-			stylus: {
-				files: ['*.styl'],
-				tasks: 'stylus'
-			},
-
-			// Перекомпиляция стилей при изменении less-файлов
-			less: {
-				files: ['*.less'],
-				tasks: 'less'
-			},
-			*/
-
-			js: {
-				files: watchedJsFiles,
-				tasks: ['concat:js' /*, 'jshint'*/ ]
-			},
-
-			css: {
-				files: watchedCssFiles,
-				tasks: ['concat:css']
-			}
-		},
-
-		uglify: {
-			options: {
-
-			},
-			dist: {
-				files: {
-					'dist/<%= pkg.name %>.min.js': ['dist/*.js']
-				}
-			}
-		},
-
-		jshint: {
-			files: ['Gruntfile.js', '<%= pkg.name %>.js'],
-			options: {
-				// options here to override JSHint defaults
-				globals: {
-					jQuery: true,
-					console: true,
-					module: true,
-					document: true
-				}
-			}
-		},
-
-		autoprefixer: {
-			options: {
-				browsers: [
-					'Android 2.3',
-					'Android >= 4',
-					'Chrome >= 20',
-					'Firefox >= 24', // Firefox 24 is the latest ESR
-					'Explorer >= 8',
-					'iOS >= 6',
-					'Opera >= 12',
-					'Safari >= 6'
-				]
-			},
-			core: {
-				options: {
-					map: true
-				},
-				src: 'dist/ui.css'
-			}
-		},
-
-		cssmin: {
-			options: {
-				keepSpecialComments: 0
-			},
-			minify: {
-				expand: true,
-				src: ['*.css', '!*.min.css'],
-				ext: '.min.css'
-			}
-		},
-
-		usebanner: {
-			options: {
-				position: 'top',
-				banner: '<%= banner %>'
-			},
-			files: {
-				src: ['<%= pkg.name %>.min.css', '<%= pkg.name %>.min.js']
-			}
-		},
-
-		docco: {
-			debug: {
-				src: ['common/ui-elements/**/*.js'],
-				options: {
-					output: 'docs/'
-				}
-			}
-		}
-	});
-
-	// These plugins provide necessary tasks.
-	require('load-grunt-tasks')(grunt, { scope: 'devDependencies' });
-	require('time-grunt')(grunt);
-
-	// Documentation task.
-	grunt.registerTask('jsdoc', ['docco']);
-
-	grunt.registerTask('dev', ['concat', 'watch']);
-	grunt.registerTask('prod', ['concat', 'autoprefixer', 'uglify', 'cssmin', 'usebanner']);
 };

@@ -1,0 +1,39 @@
+<!--<h4>My projects</h4>-->
+
+<!--<div ng-include="'js/app/projects/projects-list.tpl.html'"></div>-->
+
+<div class="page-header">
+    <h2>Users</h2>
+</div>
+
+<div class="panel panel-default">
+    <div class="panel-body">
+        <a href="#/users/new" class="btn btn-primary btn-sm pull-right" role="button">Add User</a>
+    </div>
+</div>
+
+<table class="table table-bordered table-condensed1 table-striped table-hover">
+    <thead>
+        <tr>
+            <th class="span8">Name</th>
+            <th class="span1">Email</th>
+            <th class="span1">Role</th>
+            <th class="span2">Tools</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr ng-repeat="user in users">
+            <td>
+                <a href="#/users/{{user.id}}">{{user.name}}</a>
+            </td>
+            <td>{{user.email}}</td>
+            <td>{{user.role}}</td>
+            <td>
+                <a href="#/users/edit/{{user.id}}"><span class="glyphicon glyphicon-pencil"></span></a>
+            </td>
+        </tr>
+        <tr ng-show="!users.length">
+            <td colspan="4">No users for you!</td>
+        </tr>
+    </tbody>
+</table>

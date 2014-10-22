@@ -1,9 +1,9 @@
 
-@import "variables";
-@import "../vendor/bootstrap/less/mixins";
+@import "bootstrap";
 @import "../vendor/font-awesome/less/font-awesome";
 
 @import url("http://fonts.googleapis.com/css?family=Lato:400,700,400italic");
+
 
 
 [tabindex="-1"] {
@@ -343,18 +343,19 @@ tags-input {
 
 		.tag-list {
 			margin: 0;
-			padding: 0;
+			padding: 0 2px;
 			list-style: none;
+            float: left;
+            .clearfix();
 //			padding: @padding-base-vertical @padding-base-horizontal;
 		}
 
 		.tag-item {
-			margin: .3em .2em;
+			margin: 4px 3px;
 			display: inline-block;
-			padding: .3em .6em .6em;
+			padding: 5px 8px;
 //			font-size: 75%;
 			font-weight: bold;
-			line-height: 1;
 			color: @label-color;
 			text-align: center;
 			white-space: nowrap;
@@ -381,11 +382,10 @@ tags-input {
 		.input {
 			border: 0;
 			outline: 0;
-			margin: .3em .2em;
-			padding: 0;
-			padding-left: 5px;
+            margin: 4px 3px;
+			padding: 5px 0px;
 			float: left;
-			height: 26px;
+			height: 31px;
 			font: 14px "Helvetica Neue",Helvetica,Arial,sans-serif;
 		}
 	}
@@ -412,6 +412,8 @@ tags-input {
 		}
 	}
 }
+
+
 tags-input.ng-invalid {
 	.tags {
 		border-color: #843534;

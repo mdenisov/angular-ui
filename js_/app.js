@@ -9,7 +9,10 @@
     'use strict';
 
     var app = angular.module('dashboard', [
-		'ui.bootstrap',
+        'ngRoute',
+        'ngResource',
+
+        'ui.bootstrap',
 		'ui.mask',
 		'angularFileUpload',
 		'ngTagsInput'
