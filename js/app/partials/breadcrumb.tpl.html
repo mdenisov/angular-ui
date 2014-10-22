@@ -1,5 +1,8 @@
 <ol class="breadcrumb">
-    <li><a href="#">Home</a></li>
-    <li><a href="#">Library</a></li>
-    <li class="active">Data</li>
+    <li ng-repeat="breadcrumb in breadcrumbs.getAll()">
+        <ng-switch on="$last">
+            <span ng-switch-when="true">{{breadcrumb.name}}</span>
+            <span ng-switch-default><a href="{{breadcrumb.path}}">{{breadcrumb.name}}</a></span>
+        </ng-switch>
+    </li>
 </ol>

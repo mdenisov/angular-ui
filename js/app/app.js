@@ -3,6 +3,7 @@ angular.module('app', [
         'ngRoute',
         'ngResource',
 
+        'services.breadcrumbs',
         'directives.crud',
         'users'
     ])
@@ -23,17 +24,18 @@ angular.module('app', [
         }
     ])
 
-    .controller('HeaderCtrl', ['$scope', '$location', '$route',
-        function ($scope, $location, $route) {
+    .controller('HeaderCtrl', ['$scope', '$location', '$route', 'breadcrumbs',
+        function ($scope, $location, $route, breadcrumbs) {
 
             $scope.location = $location;
+            $scope.breadcrumbs = breadcrumbs;
 
             $scope.home = function () {
                 $location.path('/');
             };
 
             $scope.isNavbarActive = function (navBarPath) {
-//                return navBarPath === breadcrumbs.getFirst().name;
+                return navBarPath === breadcrumbs.getFirst().name;
             };
 
             $scope.hasPendingRequests = function () {

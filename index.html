@@ -12,7 +12,6 @@
     <div class="container">
 
         <div ng-include="'js/app/partials/header.tpl.html'"></div>
-        <div ng-include="'js/app/partials/breadcrumb.tpl.html'"></div>
         <!--<div ng-include="'app/notifications.tpl.html'" class="container-fluid" ng-show="notifications.getCurrent().length"></div>-->
         <main ng-view class=""></main>
 
@@ -27,6 +26,7 @@
     <script src="/vendor/angular-bootstrap/ui-bootstrap-tpls.js"></script>
 
     <!-- utils -->
+    <script src="js/common/services/breadcrums.js"></script>
     <script src="js/common/directives/crud/edit.js"></script>
     <script src="js/common/directives/crud/crudButtons.js"></script>
     <script src="js/common/directives/crud/crud.js"></script>
