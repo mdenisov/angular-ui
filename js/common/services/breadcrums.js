@@ -13,7 +13,7 @@ angular.module('services.breadcrumbs', [])
 
                 var pathElements = $location.path().split('/'), result = [], i;
                 var breadcrumbPath = function (index) {
-                    return '/' + (pathElements.slice(0, index + 1)).join('/');
+                    return '#/' + (pathElements.slice(0, index + 1)).join('/');
                 };
 
                 pathElements.shift();

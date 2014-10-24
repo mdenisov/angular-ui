@@ -13,7 +13,10 @@
 
         <div ng-include="'js/app/partials/header.tpl.html'"></div>
         <div ng-include="'js/app/partials/notifications.tpl.html'" class="notifications" ng-show="notifications.getCurrent().length"></div>
+
         <main ng-view class=""></main>
+
+        <div ng-include="'js/app/partials/footer.tpl.html'"></div>
 
     </div>
 
