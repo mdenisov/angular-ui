@@ -93,7 +93,7 @@ angular.module('dataResource', [])
 
                 Resource.prototype.$update = function(successcb, errorcb) {
                     var httpPromise = $http.put(url + "/" + this.$id(), angular.extend({}, this, {
-                        id: undefined
+//                        id: undefined
                     }), {
                         params: defaultParams
                     });

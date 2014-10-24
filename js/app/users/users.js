@@ -1,7 +1,11 @@
 
 angular.module('users', [
         'services.crud',
-        'dataResource'
+        'dataResource',
+
+        'services.i18nNotifications',
+        'show-errors',
+        'users-edit-validateEmails'
     ])
 
 //    .config(['$routeProvider', function ($routeProvider) {
@@ -99,44 +103,48 @@ angular.module('users', [
         return userResource;
     }])
 
-    .controller('UsersListCtrl', ['$scope', 'crudListMethods', 'users', function ($scope, crudListMethods, users) {
-        $scope.users = users;
+    .controller('UsersListCtrl', ['$scope', 'crudListMethods', 'users', 'i18nNotifications',
+        function ($scope, crudListMethods, users, i18nNotifications) {
+            $scope.users = users;
 
-        angular.extend($scope, crudListMethods('/users'));
+            angular.extend($scope, crudListMethods('/users'));
 
-        $scope.remove = function(user, $index, $event) {
-            // Don't let the click bubble up to the ng-click on the enclosing div, which will try to trigger
-            // an edit of this item.
-            $event.stopPropagation();
+            $scope.remove = function(user, $index, $event) {
+                // Don't let the click bubble up to the ng-click on the enclosing div, which will try to trigger
+                // an edit of this item.
+                $event.stopPropagation();
 
-            // Remove this user
-            user.$remove(function() {
-                // It is gone from the DB so we can remove it from the local list too
-                $scope.users.splice($index,1);
-//                i18nNotifications.pushForCurrentRoute('crud.user.remove.success', 'success', {id : user.$id()});
-            }, function() {
-//                i18nNotifications.pushForCurrentRoute('crud.user.remove.error', 'error', {id : user.$id()});
-            });
-        };
-    }])
+                // Remove this user
+                user.$remove(function() {
+                    // It is gone from the DB so we can remove it from the local list too
+                    $scope.users.splice($index,1);
+                    i18nNotifications.pushForCurrentRoute('crud.user.remove.success', 'success', {id : user.$id()});
+                }, function() {
+                    i18nNotifications.pushForCurrentRoute('crud.user.remove.error', 'error', {id : user.$id()});
+                });
+            };
+        }
+    ])
 
-    .controller('UsersEditCtrl', ['$scope', '$location', 'user', function ($scope, $location, user) {
+    .controller('UsersEditCtrl', ['$scope', '$location', 'user', 'i18nNotifications',
+        function ($scope, $location, user, i18nNotifications) {
 
-        $scope.user = user;
-        $scope.password = user.password;
+            $scope.user = user;
+//            $scope.password = user.password;
 
-        $scope.onSave = function (user) {
-//            i18nNotifications.pushForNextRoute('crud.user.save.success', 'success', {id : user.$id()});
-            $location.path('/users');
-        };
+            $scope.onSave = function (user) {
+                i18nNotifications.pushForNextRoute('crud.user.save.success', 'success', {id : user.$id()});
+                $location.path('/users');
+            };
 
-        $scope.onError = function() {
-//            i18nNotifications.pushForCurrentRoute('crud.user.save.error', 'error');
-        };
+            $scope.onError = function() {
+                i18nNotifications.pushForCurrentRoute('crud.user.save.error', 'error');
+            };
 
-        $scope.onRemove = function(user) {
-//            i18nNotifications.pushForNextRoute('crud.user.remove.success', 'success', {id : user.$id()});
-            $location.path('/users');
-        };
+            $scope.onRemove = function(user) {
+                i18nNotifications.pushForNextRoute('crud.user.remove.success', 'success', {id : user.$id()});
+                $location.path('/users');
+            };
 
-    }]);
+        }
+    ]);

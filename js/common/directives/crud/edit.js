@@ -101,6 +101,11 @@ angular.module('directives.crud.edit', [])
                 scope.showError = function(fieldName, error) {
                     return form[fieldName].$error[error];
                 };
+
+                scope.isInvalid = function(fieldName) {
+                    var ngModelController = form[fieldName];
+                    return ngModelController.$invalid ? 'has-error' : '';
+                };
             }
         };
     }]);

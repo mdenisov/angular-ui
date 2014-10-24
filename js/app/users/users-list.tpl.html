@@ -22,14 +22,14 @@
         </tr>
     </thead>
     <tbody>
-        <tr ng-repeat="user in users" ng-click="edit(user.id)">
+        <tr ng-repeat="user in users" ng-click="edit(user.$id())">
             <td>
                 <a href="#/users/{{user.id}}">{{user.name}}</a>
             </td>
             <td>{{user.email}}</td>
             <td>{{user.role}}</td>
             <td>
-                <button class="btn btn-sm btn-default edit" ng-click="edit(user.id)">
+                <button class="btn btn-sm btn-default edit" ng-click="edit(user.$id())">
                     <span class="glyphicon glyphicon-pencil"></span>
                 </button>
                 <button class="btn btn-sm btn-danger remove" ng-click="remove(user, $index, $event)">

@@ -26,12 +26,13 @@ function updateUser($id) {
     $request = \Slim\Slim::getInstance()->request();
     $body = $request->getBody();
     $user = json_decode($body);
-    $sql = "UPDATE users SET name=:name WHERE id=:id";
+    $sql = "UPDATE users SET name=:name, email=:email, role=:role WHERE id=:id";
     try {
         $db = getConnection();
         $stmt = $db->prepare($sql);
         $stmt->bindParam("name", $user->name);
-//            $stmt->bindParam("rights", $user->rights);
+        $stmt->bindParam("role", $user->role);
+        $stmt->bindParam("email", $user->email);
         $stmt->bindParam("id", $id);
         $stmt->execute();
         $db = null;

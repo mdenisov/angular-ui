@@ -12,7 +12,7 @@
     <div class="container">
 
         <div ng-include="'js/app/partials/header.tpl.html'"></div>
-        <!--<div ng-include="'app/notifications.tpl.html'" class="container-fluid" ng-show="notifications.getCurrent().length"></div>-->
+        <div ng-include="'js/app/partials/notifications.tpl.html'" class="notifications" ng-show="notifications.getCurrent().length"></div>
         <main ng-view class=""></main>
 
     </div>
@@ -26,16 +26,21 @@
     <script src="/vendor/angular-bootstrap/ui-bootstrap-tpls.js"></script>
 
     <!-- utils -->
-    <script src="js/common/services/breadcrums.js"></script>
     <script src="js/common/directives/crud/edit.js"></script>
     <script src="js/common/directives/crud/crudButtons.js"></script>
     <script src="js/common/directives/crud/crud.js"></script>
+    <script src="js/common/directives/showErrors.js"></script>
     <script src="js/common/services/crudRouteProvider.js"></script>
     <script src="js/common/services/crud.js"></script>
+    <script src="js/common/services/notifications.js"></script>
+    <script src="js/common/services/localizedMessages.js"></script>
+    <script src="js/common/services/i18nNotifications.js"></script>
+    <script src="js/common/services/breadcrums.js"></script>
     <script src="js/common/dataResource.js"></script>
 
     <!-- Application -->
     <script src="js/app/users/users.js"></script>
+    <script src="js/app/users/validateEmails.js"></script>
     <script src="js/app/app.js"></script>
 
 </body>

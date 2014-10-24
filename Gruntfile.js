@@ -7,8 +7,8 @@ module.exports = function(grunt) {
     // Default task.
 //    grunt.registerTask('default', ['jshint', 'build', 'karma:unit']);
     grunt.registerTask('default', ['jshint', 'build']);
-    grunt.registerTask('build', ['clean', 'html2js', 'concat', 'recess:build', 'copy:assets']);
-    grunt.registerTask('release', ['clean', 'html2js', 'uglify', 'jshint', 'karma:unit', 'concat:index', 'recess:min', 'copy:assets']);
+    grunt.registerTask('build', ['clean', 'html2js', 'concat', 'less:build', 'copy:assets']);
+    grunt.registerTask('release', ['clean', 'html2js', 'uglify', 'jshint', /*'karma:unit',*/ 'concat:index', 'less:min', 'copy:assets']);
     grunt.registerTask('test-watch', ['karma:watch']);
 
     // Print a timestamp (useful for when watching)
@@ -34,17 +34,17 @@ module.exports = function(grunt) {
         pkg: grunt.file.readJSON('package.json'),
         banner: '/*! <%= pkg.title || pkg.name %> - v<%= pkg.version %> - <%= grunt.template.today("yyyy-mm-dd") %>\n' + '<%= pkg.homepage ? " * " + pkg.homepage + "\\n" : "" %>' + ' * Copyright (c) <%= grunt.template.today("yyyy") %> <%= pkg.author %>;\n' + ' * Licensed <%= _.pluck(pkg.licenses, "type").join(", ") %>\n */\n',
         src: {
-            js: ['src/**/*.js'],
+            js: ['js/**/*.js'],
             jsTpl: ['<%= distdir %>/templates/**/*.js'],
             specs: ['test/**/*.spec.js'],
             scenarios: ['test/**/*.scenario.js'],
-            html: ['src/index.html'],
+            html: ['index.html'],
             tpl: {
-                app: ['src/app/**/*.tpl.html'],
-                common: ['src/common/**/*.tpl.html']
+                app: ['js/app/**/*.tpl.html'],
+                common: ['js/common/**/*.tpl.html']
             },
-            less: ['src/less/stylesheet.less'], // recess:build doesn't accept ** in its file patterns
-            lessWatch: ['src/less/**/*.less']
+            less: ['less/main.less'], // recess:build doesn't accept ** in its file patterns
+//            lessWatch: ['less/**/*.less']
         },
         clean: ['<%= distdir %>/*'],
         copy: {
@@ -53,7 +53,7 @@ module.exports = function(grunt) {
                     dest: '<%= distdir %>',
                     src: '**',
                     expand: true,
-                    cwd: 'src/assets/'
+                    cwd: 'assets/'
                 }]
             }
         },
@@ -71,18 +71,18 @@ module.exports = function(grunt) {
         html2js: {
             app: {
                 options: {
-                    base: 'src/app'
+                    base: 'js/app'
                 },
                 src: ['<%= src.tpl.app %>'],
-                dest: '<%= distdir %>/templates/app.js',
+                dest: '<%= distdir %>/js/templates/app.js',
                 module: 'templates.app'
             },
             common: {
                 options: {
-                    base: 'src/common'
+                    base: 'js/common'
                 },
                 src: ['<%= src.tpl.common %>'],
-                dest: '<%= distdir %>/templates/common.js',
+                dest: '<%= distdir %>/js/templates/common.js',
                 module: 'templates.common'
             }
         },
@@ -92,30 +92,26 @@ module.exports = function(grunt) {
                     banner: "<%= banner %>"
                 },
                 src: ['<%= src.js %>', '<%= src.jsTpl %>'],
-                dest: '<%= distdir %>/<%= pkg.name %>.js'
+                dest: '<%= distdir %>/js/<%= pkg.name %>.js'
             },
             index: {
-                src: ['src/index.html'],
+                src: ['index.html'],
                 dest: '<%= distdir %>/index.html',
                 options: {
                     process: true
                 }
             },
             angular: {
-                src: ['vendor/angular/angular.js', 'vendor/angular/angular-route.js'],
-                dest: '<%= distdir %>/angular.js'
-            },
-            mongo: {
-                src: ['vendor/mongolab/*.js'],
-                dest: '<%= distdir %>/mongolab.js'
+                src: ['vendor/angular/angular.js', 'vendor/angular-route/angular-route.js', 'vendor/angular-resource/angular-resource.js', 'vendor/angular-sanitize/angular-sanitize.js'],
+                dest: '<%= distdir %>/js/angular.js'
             },
             bootstrap: {
-                src: ['vendor/angular-ui/bootstrap/*.js'],
-                dest: '<%= distdir %>/bootstrap.js'
+                src: ['vendor/angular-bootstrap/ui-bootstrap.js', 'vendor/angular-bootstrap/ui-bootstrap-tpls.js'],
+                dest: '<%= distdir %>/js/bootstrap.js'
             },
             jquery: {
-                src: ['vendor/jquery/*.js'],
-                dest: '<%= distdir %>/jquery.js'
+                src: ['vendor/jquery/dist/jquery.js'],
+                dest: '<%= distdir %>/js/jquery.js'
             }
         },
         uglify: {
@@ -124,40 +120,37 @@ module.exports = function(grunt) {
                     banner: "<%= banner %>"
                 },
                 src: ['<%= src.js %>', '<%= src.jsTpl %>'],
-                dest: '<%= distdir %>/<%= pkg.name %>.js'
+                dest: '<%= distdir %>/js/<%= pkg.name %>.js'
             },
             angular: {
                 src: ['<%= concat.angular.src %>'],
-                dest: '<%= distdir %>/angular.js'
-            },
-            mongo: {
-                src: ['vendor/mongolab/*.js'],
-                dest: '<%= distdir %>/mongolab.js'
+                dest: '<%= distdir %>/js/angular.js'
             },
             bootstrap: {
-                src: ['vendor/angular-ui/bootstrap/*.js'],
-                dest: '<%= distdir %>/bootstrap.js'
+                src: ['<%= concat.bootstrap.src %>'],
+                dest: '<%= distdir %>/js/bootstrap.js'
             },
             jquery: {
-                src: ['vendor/jquery/*.js'],
-                dest: '<%= distdir %>/jquery.js'
+                src: ['<%= concat.jquery.src %>'],
+                dest: '<%= distdir %>/js/jquery.js'
             }
         },
-        recess: {
+        less: {
             build: {
-                files: {
-                    '<%= distdir %>/<%= pkg.name %>.css': ['<%= src.less %>']
-                },
                 options: {
-                    compile: true
+                    paths: ["assets/css"]
+                },
+                files: {
+                    '<%= distdir %>/css/<%= pkg.name %>.css': ['<%= src.less %>']
                 }
             },
             min: {
-                files: {
-                    '<%= distdir %>/<%= pkg.name %>.css': ['<%= src.less %>']
-                },
                 options: {
-                    compress: true
+                    paths: ["assets/css"],
+                    cleancss: true
+                },
+                files: {
+                    '<%= distdir %>/css/<%= pkg.name %>.css': ['<%= src.less %>']
                 }
             }
         },
