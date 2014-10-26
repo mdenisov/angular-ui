@@ -110,18 +110,20 @@ angular.module('users', [
     }])
 
     .filter('startsWithLetter', function () {
-        return function (items, name, email) {
+        return function (items, search) {
             var filtered = [];
-            var nameMatch = new RegExp(name, 'i');
-            var emailMatch = new RegExp(email, 'i');
-            for (var i = 0; i < items.length; i++) {
-                var item = items[i];
 
-                console.log(nameMatch.test(item.name));
+            if (items) {
+                var searchMatch = new RegExp(search, 'i');
 
-                if (nameMatch.test(item.name) || emailMatch.test(item.email) ) {
-                    filtered.push(item);
+                for (var i = 0; i < items.length; i++) {
+                    var item = items[i];
+
+                    if (searchMatch.test(item.name) || searchMatch.test(item.email) ) {
+                        filtered.push(item);
+                    }
                 }
+                return filtered;
             }
             return filtered;
         };
@@ -141,9 +143,6 @@ angular.module('users', [
     .controller('UsersListCtrl', ['$scope', 'crudListMethods', 'users', 'i18nNotifications',
         function ($scope, crudListMethods, users, i18nNotifications) {
             $scope.users = users;
-
-//            console.log(users.query({page: 1}));
-            console.log(users);
 
             angular.extend($scope, crudListMethods('/users'));
 

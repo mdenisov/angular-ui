@@ -45,7 +45,6 @@ angular.module('dataResource', [])
                 };
 
                 Resource.query = function(queryJson, successcb, errorcb) {
-                    console.log(queryJson);
                     var q = [],
                         params = angular.isObject(queryJson) ?
                         (angular.extend({}, defaultParams, queryJson))

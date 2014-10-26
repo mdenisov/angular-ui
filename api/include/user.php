@@ -76,7 +76,7 @@ function addUser() {
     }
 }
 
-function getUsers($page) {
+function getUsers($page = 1) {
     $sql = "select * FROM users ORDER BY id";
     try {
         $db = getConnection();
