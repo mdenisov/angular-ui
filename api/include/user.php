@@ -2,6 +2,7 @@
 
 
 $app->get('/users/', 'getUsers');
+$app->get('/users/page/:page', 'getUsers');
 $app->get('/users/:id', 'getUser');
 $app->put('/users/:id', 'updateUser');
 $app->post('/users/', 'addUser');
@@ -75,7 +76,7 @@ function addUser() {
     }
 }
 
-function getUsers() {
+function getUsers($page) {
     $sql = "select * FROM users ORDER BY id";
     try {
         $db = getConnection();

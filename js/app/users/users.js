@@ -82,6 +82,23 @@ angular.module('users', [
             .whenList({
                 users: ['Users', function(Users) { return Users.all(); }]
             })
+            .when('/users/page/:page', {
+                templateUrl:'js/app/users/users-list.tpl.html',
+                controller:'UsersListCtrl',
+                resolve:{
+                    users: ['$route', 'Users', function($route, Users) {
+                        console.log($route.current.params.page);
+                        return Users.query({page: 1});
+                    }]
+                }
+            })
+//            .whenList({
+////                users: ['Users', function(Users) { return Users.all(); }]
+//                users: ['$route', 'Users', function($route, Users) {
+//                    console.log($route.current.params.page);
+//                    return Users.query({page: 1});
+//                }]
+//            })
             .whenNew({
                 user: ['Users', function(Users) { return new Users(); }]
             })
@@ -91,6 +108,24 @@ angular.module('users', [
                 }]
             });
     }])
+
+    .filter('startsWithLetter', function () {
+        return function (items, name, email) {
+            var filtered = [];
+            var nameMatch = new RegExp(name, 'i');
+            var emailMatch = new RegExp(email, 'i');
+            for (var i = 0; i < items.length; i++) {
+                var item = items[i];
+
+                console.log(nameMatch.test(item.name));
+
+                if (nameMatch.test(item.name) || emailMatch.test(item.email) ) {
+                    filtered.push(item);
+                }
+            }
+            return filtered;
+        };
+    })
 
     .factory('Users', ['dataResource', function (dataResource) {
 
@@ -106,6 +141,9 @@ angular.module('users', [
     .controller('UsersListCtrl', ['$scope', 'crudListMethods', 'users', 'i18nNotifications',
         function ($scope, crudListMethods, users, i18nNotifications) {
             $scope.users = users;
+
+//            console.log(users.query({page: 1}));
+            console.log(users);
 
             angular.extend($scope, crudListMethods('/users'));
 

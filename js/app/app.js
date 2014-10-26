@@ -2,6 +2,9 @@
 angular.module('app', [
         'ngRoute',
         'ngResource',
+        'ngSanitize',
+
+        'ui.bootstrap',
 
         'services.i18nNotifications',
         'services.breadcrumbs',

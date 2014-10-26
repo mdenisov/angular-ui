@@ -8,7 +8,14 @@
 
 <div class="panel panel-default">
     <div class="panel-body">
-        <button class="btn btn-primary btn-sm pull-right" role="button" ng-click="new()">Add User</button>
+        <form class="form-inline" role="form">
+            <div class="form-group">
+                <input type="text" class="form-control" placeholder="Enter name" ng-model="name">
+            </div>
+            <div class="form-group">
+                <input type="text" class="form-control" placeholder="Enter email" ng-model="email">
+            </div>
+        </form>
     </div>
 </div>
 
@@ -22,7 +29,7 @@
         </tr>
     </thead>
     <tbody>
-        <tr ng-repeat="user in users" ng-click="edit(user.$id())">
+        <tr ng-repeat="user in users | startsWithLetter:name:email" ng-click="edit(user.$id())">
             <td>
                 <a href="#/users/{{user.id}}">{{user.name}}</a>
             </td>
@@ -42,3 +49,9 @@
         </tr>
     </tbody>
 </table>
+
+<div class="panel panel-default">
+    <div class="panel-body">
+        <button class="btn btn-primary btn-sm pull-right" role="button" ng-click="new()">Add User</button>
+    </div>
+</div>

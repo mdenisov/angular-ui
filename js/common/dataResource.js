@@ -45,12 +45,18 @@ angular.module('dataResource', [])
                 };
 
                 Resource.query = function(queryJson, successcb, errorcb) {
-                    var params = angular.isObject(queryJson) ? {
-                        q: JSON.stringify(queryJson)
-                    } : {};
-                    var httpPromise = $http.get(url, {
-                        params: angular.extend({}, defaultParams, params)
+                    console.log(queryJson);
+                    var q = [],
+                        params = angular.isObject(queryJson) ?
+                        (angular.extend({}, defaultParams, queryJson))
+                        : {};
+
+                    angular.forEach(params, function(value, key){
+                        q.push(key);
+                        q.push(value);
                     });
+
+                    var httpPromise = $http.get(url + '/' + q.join('/'));
                     return thenFactoryMethod(httpPromise, successcb, errorcb, true);
                 };
 
