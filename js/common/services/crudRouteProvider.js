@@ -89,6 +89,15 @@ function crudRouteProvider($routeProvider) {
                 });
                 return routeBuilder;
             },
+            // Create a route that will handle viewing an existing item
+            whenView: function(resolveFns) {
+                routeBuilder.when(baseRoute + '/:itemId', {
+                    templateUrl: templateUrl('View'),
+                    controller: controllerName('View'),
+                    resolve: resolveFns
+                });
+                return routeBuilder;
+            },
             // Pass-through to `$routeProvider.when()`
             when: function(path, route) {
                 $routeProvider.when(path, route);
