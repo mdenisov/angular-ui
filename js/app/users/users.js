@@ -160,6 +160,26 @@ angular.module('users', [
                     i18nNotifications.pushForCurrentRoute('crud.user.remove.error', 'error', {id : user.$id()});
                 });
             };
+
+            $scope.sortField = undefined;
+            $scope.reverse = false;
+
+            $scope.sort = function(fieldName) {
+                if($scope.sortField === fieldName) {
+                    $scope.reverse = true;
+                } else {
+                    $scope.sortField = fieldName;
+                    $scope.reverse = false;
+                }
+            };
+
+            $scope.isSortUp = function(fieldName) {
+                return $scope.sortField === fieldName && !$scope.reverse;
+            };
+
+            $scope.isSortDown = function(fieldName) {
+                return $scope.sortField === fieldName && $scope.reverse;
+            };
         }
     ])
 
