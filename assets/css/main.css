@@ -4591,7 +4591,7 @@ a.thumbnail.active {
   color: #2c3e50;
 }
 .alert {
-  padding: 15px;
+  padding: 10px;
   margin-bottom: 21px;
   border: 1px solid transparent;
   border-radius: 4px;
@@ -4612,7 +4612,7 @@ a.thumbnail.active {
 }
 .alert-dismissable,
 .alert-dismissible {
-  padding-right: 35px;
+  padding-right: 30px;
 }
 .alert-dismissable .close,
 .alert-dismissible .close {
@@ -4973,7 +4973,7 @@ a.list-group-item-danger.active:focus {
   box-shadow: 0 1px 1px rgba(0, 0, 0, 0.05);
 }
 .panel-body {
-  padding: 15px;
+  padding: 10px;
 }
 .panel-heading {
   padding: 10px 15px;
