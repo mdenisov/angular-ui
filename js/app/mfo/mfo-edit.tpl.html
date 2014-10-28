@@ -60,7 +60,8 @@
                 <div class="form-group" show-errors>
                     <label class="col-md-4 control-label">Город регистрации</label>
                     <div class="col-md-6">
-                        <input type="text" name="region_id" ng-model="mfo.region_id" placeholder="Locations loaded via $http" typeahead="address for address in getRegion(mfo.region_id)" typeahead-loading="loadingLocations" class="form-control" required>
+                        <!--<input type="text" name="region_id" ng-model="mfo.region_id" placeholder="Locations loaded via $http" typeahead="address for address in getRegion(mfo.region_id)" typeahead-loading="loadingLocations" class="form-control" required>-->
+                        <input type="text" name="region_id" autocomplete="off" ng-model="mfo.region_selected" typeahead-on-select="setRegion($item)" placeholder="Locations" typeahead="region.name for region in regions | filter:{id:mfo.region_selected}" typeahead-editable="false" typeahead-loading="loadingLocations" class="form-control" required>
                         <span ng-show="showError('region_id', 'required')" class="help-inline">This field is required.</span>
                     </div>
                 </div>

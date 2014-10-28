@@ -102,6 +102,7 @@ angular.module('mfo', [
         function ($scope, $location, $http, mfo, i18nNotifications) {
 
             $scope.mfo = mfo;
+            $scope.mfo.region_selected = $scope.mfo.region_id;
 //            $scope.password = user.password;
 
             $scope.onSave = function (mfo) {
@@ -130,6 +131,15 @@ angular.module('mfo', [
 					});
 				});
 			};
+
+            $scope.regions = [
+                {id: 1, name: "google"},
+                {id: 2, name: "microsoft"}
+            ];
+
+            $scope.setRegion = function(region) {
+                $scope.mfo.region_id = region.id;
+            };
 
         }
     ]);
