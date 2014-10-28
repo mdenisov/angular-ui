@@ -26,6 +26,7 @@ require 'include/db.php';
 
 // Routes
 require 'include/user.php';
+require 'include/mfo.php';
 
 
 $app->get('/test', 'test');

@@ -9,7 +9,9 @@ angular.module('app', [
         'services.i18nNotifications',
         'services.breadcrumbs',
         'directives.crud',
-        'users'
+
+        'users',
+        'mfo'
     ])
 
     .constant('I18N.MESSAGES', {

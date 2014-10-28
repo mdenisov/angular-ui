@@ -1,0 +1,145 @@
+
+<div class="page-header">
+    <h2 ng-show="remove()">Редактирование {{mfo.name}}</h2>
+    <h2 ng-show="!remove()">Добавление МФО</h2>
+</div>
+
+<table class="full-width">
+    <tr>
+        <td>
+            <form class="form-horizontal" role="form" name="form" novalidate crud-edit="mfo">
+                <div class="form-group" show-errors>
+                    <label class="col-md-4 control-label">Название</label>
+                    <div class="col-md-6">
+                        <input class="form-control" placeholder="Название" name="name" type="text" maxlength="100" ng-model="mfo.name" required>
+                        <span ng-show="showError('name', 'required')" class="help-inline">This field is required.</span>
+                    </div>
+                </div>
+                <div class="form-group" show-errors>
+                    <label class="col-md-4 control-label">Полное название</label>
+                    <div class="col-md-6">
+                        <input class="form-control" placeholder="Полное название" name="name_full" type="text" maxlength="255" ng-model="mfo.name_full" required>
+                        <span ng-show="showError('name_full', 'required')" class="help-inline">This field is required.</span>
+                    </div>
+                </div>
+                <div class="form-group" show-errors>
+                    <label class="col-md-4 control-label">Символьный код</label>
+                    <div class="col-md-6">
+                        <input class="form-control" placeholder="Символьный код" name="code" type="text" maxlength="50" ng-model="mfo.code" required>
+                        <span ng-show="showError('code', 'required')" class="help-inline">This field is required.</span>
+                    </div>
+                </div>
+                <div class="form-group" show-errors>
+                    <label class="col-md-4 control-label">Активно</label>
+                    <div class="col-md-6">
+                        <input class="form-control" type="text" value="0" name="is_active" ng-model="mfo.is_active" required>
+                        <span ng-show="showError('is_active', 'required')" class="help-inline">This field is required.</span>
+                    </div>
+                </div>
+                <div class="form-group" show-errors>
+                    <label class="col-md-4 control-label">Торговая марка МФО</label>
+                    <div class="col-md-6">
+                        <input class="form-control" placeholder="Торговая марка МФО" name="trademark_mfo" type="text" maxlength="100" ng-model="mfo.trademark_mfo" required>
+                        <span ng-show="showError('trademark_mfo', 'required')" class="help-inline">This field is required.</span>
+                    </div>
+                </div>
+                <div class="form-group" show-errors>
+                    <label class="col-md-4 control-label">Лицензия</label>
+                    <div class="col-md-6">
+                        <input class="form-control" placeholder="Лицензия" name="certificate" type="text" maxlength="50" ng-model="mfo.certificate" required>
+                        <span ng-show="showError('certificate', 'required')" class="help-inline">This field is required.</span>
+                    </div>
+                </div>
+                <div class="form-group" show-errors>
+                    <label class="col-md-4 control-label">Официальный сайт</label>
+                    <div class="col-md-6">
+                        <input class="form-control" placeholder="Официальный сайт" name="url" type="url" ng-model="mfo.url" required>
+                        <span ng-show="showError('url', 'required')" class="help-inline">This field is required.</span>
+                    </div>
+                </div>
+                <div class="form-group" show-errors>
+                    <label class="col-md-4 control-label">Город регистрации</label>
+                    <div class="col-md-6">
+                        <input class="form-control" name="region_id" type="text" title="Город регистрации" ng-model="mfo.region_id" required>
+                        <span ng-show="showError('region_id', 'required')" class="help-inline">This field is required.</span>
+                    </div>
+                </div>
+                <div class="form-group" show-errors>
+                    <label class="col-md-4 control-label">Адрес</label>
+                    <div class="col-md-6">
+                        <textarea class="form-control" style="width: 100%; height: 100px;" name="address" dir="ltr" ng-model="mfo.address" required></textarea>
+                        <span ng-show="showError('address', 'required')" class="help-inline">This field is required.</span>
+                    </div>
+                </div>
+                <div class="form-group" show-errors>
+                    <label class="col-md-4 control-label">ФИО руководителя организации</label>
+                    <div class="col-md-6">
+                        <input class="form-control" placeholder="ФИО руководителя организации" name="chief_name" type="text" maxlength="100" ng-model="mfo.chief_name" required>
+                        <span ng-show="showError('chief_name', 'required')" class="help-inline">This field is required.</span>
+                    </div>
+                </div>
+                <div class="form-group" show-errors>
+                    <label class="col-md-4 control-label">Должность руководителя организации</label>
+                    <div class="col-md-6">
+                        <input class="form-control" placeholder="Должность руководителя организации" name="chief_position" type="text" maxlength="100" ng-model="mfo.chief_position" required>
+                        <span ng-show="showError('chief_position', 'required')" class="help-inline">This field is required.</span>
+                    </div>
+                </div>
+                <div class="form-group" show-errors>
+                    <label class="col-md-4 control-label">Название в родительном падеже (Кого? Чего?)</label>
+                    <div class="col-md-6">
+                        <input class="form-control" placeholder="Название в родительном падеже (Кого? Чего?)" name="name_genitive" type="text" maxlength="100" ng-model="mfo.name_genitive" required>
+                        <span ng-show="showError('name_genitive', 'required')" class="help-inline">This field is required.</span>
+                    </div>
+                </div>
+                <div class="form-group" show-errors>
+                    <label class="col-md-4 control-label">Название в предложном падеже (о Ком? О Чем?)</label>
+                    <div class="col-md-6">
+                        <input class="form-control" placeholder="Название в предложном падеже (о Ком? О Чем?)" name="name_prepositional" type="text" maxlength="100" ng-model="mfo.name_prepositional" required>
+                        <span ng-show="showError('name_prepositional', 'required')" class="help-inline">This field is required.</span>
+                    </div>
+                </div>
+                <div class="form-group" show-errors>
+                    <label class="col-md-4 control-label">Справка Banki.ru</label>
+                    <div class="col-md-6">
+                        <textarea class="form-control" style="width: 100%; height: 100px;" name="additional_information" dir="ltr" ng-model="mfo.additional_information" required></textarea>
+                        <span ng-show="showError('additional_information', 'required')" class="help-inline">This field is required.</span>
+                    </div>
+                </div>
+                <div class="form-group" show-errors>
+                    <label class="col-md-4 control-label">Описание для анонса</label>
+                    <div class="col-md-6">
+                        <textarea class="form-control" style="width: 100%; height: 100px;" name="preview_text" dir="ltr" ng-model="mfo.preview_text" required></textarea>
+                        <span ng-show="showError('preview_text', 'required')" class="help-inline">This field is required.</span>
+                    </div>
+                </div>
+                <div class="form-group" show-errors>
+                    <label class="col-md-4 control-label">Описание для детального просмотра</label>
+                    <div class="col-md-6">
+                        <textarea class="form-control" style="width: 100%; height: 100px;" name="detail_text" dir="ltr" ng-model="mfo.detail_text" required></textarea>
+                        <span ng-show="showError('detail_text', 'required')" class="help-inline">This field is required.</span>
+                    </div>
+                </div>
+                <div class="form-group" show-errors>
+                    <label class="col-md-4 control-label">Комментарии</label>
+                    <div class="col-md-6">
+                        <textarea class="form-control" style="width: 100%; height: 100px;" name="comments" dir="ltr" ng-model="mfo.comments" required></textarea>
+                        <span ng-show="showError('comments', 'required')" class="help-inline">This field is required.</span>
+                    </div>
+                </div>
+                <div class="form-group" show-errors>
+                    <label class="col-md-4 control-label">Порядок сортировки</label>
+                    <div class="col-md-6">
+                        <input class="form-control" placeholder="Порядок сортировки" name="order_pos" type="number" value="0" ng-model="mfo.order_pos">
+                        <span ng-show="showError('order_pos', 'required')" class="help-inline">This field is required.</span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-offset-4 col-md-6">
+                        <crud-buttons></crud-buttons>
+                    </div>
+                </div>
+            </form>
+        </td>
+    </tr>
+</table>
