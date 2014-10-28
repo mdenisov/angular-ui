@@ -51,7 +51,6 @@
             <th>Активность</th>
             <th>Создано</th>
             <th>Изменено</th>
-            <th>Кем изменено</th>
             <th>Вес</th>
             <th></th>
         </tr>
@@ -62,9 +61,8 @@
             <td>{{mfo.region_id}}</td>
             <td>{{mfo.certificate}}</td>
             <td>{{mfo.is_active}}</td>
-            <td>{{mfo.region_id}}</td>
-            <td>{{mfo.region_id}}</td>
-            <td>{{mfo.region_id}}</td>
+            <td>{{mfo.created | date:'MMM d, y HH:mm'}}</td>
+            <td>{{mfo.modified}}</td>
             <td>{{mfo.order_pos}}</td>
             <td>
                 <button class="btn btn-sm btn-default edit" ng-click="edit(mfo.$id())">
@@ -75,8 +73,8 @@
                 </button>
             </td>
         </tr>
-        <tr ng-show="!mfo.length">
-            <td colspan="9">No mfo for you!</td>
+        <tr ng-show="!mfos.length">
+            <td colspan="8">No mfo for you!</td>
         </tr>
     </tbody>
 </table>

@@ -98,8 +98,8 @@ angular.module('mfo', [
         }
     ])
 
-    .controller('MfoEditCtrl', ['$scope', '$location', 'mfo', 'i18nNotifications',
-        function ($scope, $location, mfo, i18nNotifications) {
+    .controller('MfoEditCtrl', ['$scope', '$location', '$http', 'mfo', 'i18nNotifications',
+        function ($scope, $location, $http, mfo, i18nNotifications) {
 
             $scope.mfo = mfo;
 //            $scope.password = user.password;
@@ -117,6 +117,19 @@ angular.module('mfo', [
                 i18nNotifications.pushForNextRoute('crud.user.remove.success', 'success', {id : mfo.$id()});
                 $location.path('/mfo');
             };
+
+			$scope.getRegion = function(val) {
+				return $http.get('http://maps.googleapis.com/maps/api/geocode/json', {
+					params: {
+						address: val,
+						sensor: false
+					}
+				}).then(function(response){
+					return response.data.results.map(function(item) {
+						return item.formatted_address;
+					});
+				});
+			};
 
         }
     ]);
