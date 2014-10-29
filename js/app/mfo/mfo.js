@@ -98,12 +98,10 @@ angular.module('mfo', [
         }
     ])
 
-    .controller('MfoEditCtrl', ['$scope', '$location', '$http', 'mfo', 'i18nNotifications',
-        function ($scope, $location, $http, mfo, i18nNotifications) {
+    .controller('MfoEditCtrl', ['$scope', '$location', '$http', '$filter', 'mfo', 'i18nNotifications',
+        function ($scope, $location, $http, $filter, mfo, i18nNotifications) {
 
             $scope.mfo = mfo;
-            $scope.mfo.region_selected = $scope.mfo.region_id;
-//            $scope.password = user.password;
 
             $scope.onSave = function (mfo) {
                 i18nNotifications.pushForNextRoute('crud.user.save.success', 'success', {id : mfo.$id()});
@@ -119,6 +117,24 @@ angular.module('mfo', [
                 $location.path('/mfo');
             };
 
+			$scope.regions = [
+				{ id: 1, name: 'Alaska'},
+				{ id: 2, name: 'Arizona'},
+				{ id: 3, name: 'Arkansas'},
+				{ id: 4, name: 'California'},
+				{ id: 5, name: 'Colorado'},
+				{ id: 6, name: 'Connecticut'},
+				{ id: 7, name: 'Moscow'}
+			];
+
+			$scope.setRegion = function(region) {
+				$scope.mfo.region_id = region.id;
+			};
+
+			if ($scope.mfo.region_id) {
+				$scope.mfo.region_selected = $filter('filter')($scope.regions, function (d) {return d.id == $scope.mfo.region_id;})[0];
+			}
+
 			$scope.getRegion = function(val) {
 				return $http.get('http://maps.googleapis.com/maps/api/geocode/json', {
 					params: {
@@ -131,15 +147,5 @@ angular.module('mfo', [
 					});
 				});
 			};
-
-            $scope.regions = [
-                {id: 1, name: "google"},
-                {id: 2, name: "microsoft"}
-            ];
-
-            $scope.setRegion = function(region) {
-                $scope.mfo.region_id = region.id;
-            };
-
         }
     ]);
